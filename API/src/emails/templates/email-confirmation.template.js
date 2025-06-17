@@ -1,0 +1,381 @@
+export const emailConfirmation = (URL_TO_SEND, UNSUBSCRIBE, POLICY) => {
+  return `<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Confirmation</title>
+    <style>
+      /* Reset styles for email clients */
+      body,
+      table,
+      td,
+      p,
+      a,
+      li,
+      blockquote {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+
+      a:visited{
+        color:#ffffff;
+      }
+
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+
+      img {
+        -ms-interpolation-mode: bicubic;
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+      }
+
+      /* Main styles */
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #0c9619 0%, #0a7d15 100%);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .logo {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        align-items: center !important;
+        justify-content: center;
+        display: flex !important;
+      }
+
+      .header h1 {
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .content {
+        padding: 50px 40px;
+        text-align: center;
+      }
+
+      .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #0c9619 0%, #0a7d15 100%);
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(12, 150, 25, 0.3);
+      }
+
+      .icon-wrapper svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
+
+      .content h2 {
+        color: #2d3748;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 15px;
+        line-height: 1.2;
+      }
+
+      .content p {
+        color: #4a5568;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0 0 30px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #0c9619 0%, #0a7d15 100%);
+        color: white;
+        text-decoration: none;
+        padding: 16px 40px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 8px 25px rgba(12, 150, 25, 0.3);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+      }
+
+      .cta-button:visited{
+          color: white;
+        }
+
+      .cta-button:hover {
+        background: linear-gradient(135deg, #0a7d15 0%, #0c9619 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(12, 150, 25, 0.4);
+      }
+
+      .security-note {
+        background-color: #f7fafc;
+        border-left: 4px solid #0c9619;
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .security-note p {
+        margin: 0;
+        font-size: 14px;
+        color: #2d3748;
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          #e2e8f0 50%,
+          transparent 100%
+        );
+        margin: 40px 0;
+      }
+
+      .footer {
+        background-color: #f8f9fa;
+        padding: 30px 40px;
+        text-align: center;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .footer p {
+        color: #718096;
+        font-size: 14px;
+        margin: 0 0 15px;
+        line-height: 1.5;
+      }
+
+      .social-links {
+        margin: 20px 0 0;
+      }
+
+      .social-links a {
+        display: inline-block;
+        margin: 0 10px;
+        width: 36px;
+        height: 36px;
+        background-color: #e2e8f0;
+        border-radius: 50%;
+        text-decoration: none;
+        line-height: 36px;
+        color: #718096;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background-color: #0c9619;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Responsive styles */
+      @media screen and (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+        }
+
+        .content {
+          padding: 30px 20px !important;
+        }
+
+        .header {
+          padding: 30px 20px !important;
+        }
+
+        .footer {
+          padding: 20px !important;
+        }
+
+        .content h2 {
+          font-size: 28px !important;
+        }
+
+        .cta-button {
+          padding: 14px 30px !important;
+        }
+
+        .ii a {
+          color: #fff !important;
+        }
+
+        .ii a:visited {
+          color: #fff !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="background-color: #f8f9fa; padding: 20px 0">
+      <table
+        role="presentation"
+        cellspacing="0"
+        cellpadding="0"
+        border="0"
+        align="center"
+        class="email-container"
+      >
+        <!-- Header -->
+        <tr>
+          <td class="header">
+            <div class="logo">
+              <img src="https://img.icons8.com/?size=100&id=11695&format=png&color=ffffff"/>
+            </div>
+            <h1>Confirmez votre Email</h1>
+          </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+          <td class="content">
+            <div class="icon-wrapper">
+              <img src="https://img.icons8.com/?size=100&id=114083&format=png&color=ffffff"/>
+            </div>
+
+            <h2>Bienvenue à bord !</h2>
+            <p>
+              merci de nous rejoindre. Pour compléter votre inscription et avoir
+              accès à toutes les fonctionnalités, merci de confirmer votre
+              adresse email en cliquant sur le bouton ci-dessous.
+            </p>
+
+            <a href="${URL_TO_SEND}" class="cta-button"
+              >Confirmer mon adresse email</a
+            >
+
+            <div class="security-note">
+              <p>
+                <strong>Notre de sécurité:</strong> Ce lien de confirmation
+                expirera dans 24H. Si vous ne souhaitez pas créer de compte chez
+                nous, merci d'ignorer cet email.
+              </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <p style="font-size: 14px; color: #718096">
+              Si le bouton ci-dessus ne fonctionne pas, copiez/collez le lien
+              suivant dans votre navigateur :<br />
+              <a href="#" style="color: #0c9619; word-break: break-all"
+                >${URL_TO_SEND}</a
+              >
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td class="footer">
+            <p><strong>Smiley by Risus</strong></p>
+            <p>
+              Rue de l'Université<br />
+              62113 Verquigneul<br />
+              France
+            </p>
+
+            <div class="social-links">
+              <a href="#" title="Twitter">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                  />
+                </svg>
+              </a>
+              <a href="#" title="Facebook">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+              </a>
+              <a href="#" title="LinkedIn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <p style="margin-top: 20px">
+              © 2025 Risus. Tous droits réservés.<br />
+              <a
+                href="${UNSUBSCRIBE}"
+                style="color: #0c9619; text-decoration: none"
+                >Se désinscrire</a
+              >
+              |
+              <a href="${POLICY}" style="color: #0c9619; text-decoration: none"
+                >Politique de Confidentialité</a
+              >
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+`;
+};
