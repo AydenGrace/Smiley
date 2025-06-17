@@ -8,6 +8,7 @@ import testAPI from "./routes/test.route.js";
 import roleAPI from "./routes/role.route.js";
 import MediaTypeAPI from "./routes/media-type.route.js";
 import ArticleTypeAPI from "./routes/article-type.route.js";
+import authAPI from "./routes/auth.route.js";
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use("/test", testAPI);
 app.use("/role", roleAPI);
 app.use("/media-type", MediaTypeAPI);
 app.use("/article-type", ArticleTypeAPI);
+app.use("/auth", authAPI);
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running.");

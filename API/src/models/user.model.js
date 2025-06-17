@@ -15,9 +15,6 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    token_create: {
-      type: String,
-    },
     token_modify: {
       type: String,
     },
