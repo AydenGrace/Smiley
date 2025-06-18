@@ -74,3 +74,14 @@ export const sendChangePwd = async (email, token) => {
 
   await transporter.sendMail(mailOptions);
 };
+
+export const sendChangeEmail = async (email, token) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Demande de changement d'adresse email'.",
+    html: `<p>Votre demande de changement d'adresse a bien été reçue. Si cette demande n'est pas de votre initiative, merci d'ignorer le lien suivant : <a href="${process.env.FRONT}/change-email/${token}">Modifier mon adresse email</a>.</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
