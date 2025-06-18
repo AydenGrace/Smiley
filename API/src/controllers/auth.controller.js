@@ -1,24 +1,26 @@
 import Role from "../models/role.model.js";
 import User from "../models/user.model.js";
+import Order from "../models/order.model.js";
 import UserTemp from "../models/tempuser.schema.js";
-import {tokenCreation} from "../lib/utils.js";
-import {sendConfirmationEmail} from "../emails/email.js";
+import UserArchive from "../models/user-archive.model.js";
+import { tokenCreation } from "../lib/utils.js";
+import { sendConfirmationEmail } from "../emails/email.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import {RED, BLUE, RESET} from "../lib/terminalColors.js";
+import { RED, BLUE, RESET } from "../lib/terminalColors.js";
 
 export const signUp = async (req, res) => {
   try {
-    const {email} = req.body;
+    const { email } = req.body;
     //VERIFY ALREADY EXIST
-    let alreadyExist = await User.findOne({email});
+    let alreadyExist = await User.findOne({ email });
     if (alreadyExist)
       return res
         .status(400)
-        .json({message: "Account already created with this address."});
+        .json({ message: "Account already created with this address." });
 
-    alreadyExist = await UserTemp.findOne({email});
+    alreadyExist = await UserTemp.findOne({ email });
     if (alreadyExist)
       return res.status(400).json({
         message: "Registration already in progress. Please check your emails.",
@@ -28,36 +30,36 @@ export const signUp = async (req, res) => {
     const token = tokenCreation(email);
 
     //Create temporary user
-    const newUser = new UserTemp({email, token});
+    const newUser = new UserTemp({ email, token });
     await newUser.save();
     await sendConfirmationEmail(newUser.email, newUser.token);
     res
       .status(200)
-      .json({message: "Confirmation send. Please check your emails."});
+      .json({ message: "Confirmation send. Please check your emails." });
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.signUp()${RED} function : ${RESET}`,
       error
     );
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const signUpConfirm = async (req, res) => {
   try {
-    const {token} = req.params;
-    const {fullname, password} = req.body;
+    const { token } = req.params;
+    const { fullname, password } = req.body;
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     //verify exist
-    const tempUser = await UserTemp.findOne({email: decoded.email, token});
-    if (!tempUser) return res.status(404).json({message: "User not found"});
+    const tempUser = await UserTemp.findOne({ email: decoded.email, token });
+    if (!tempUser) return res.status(404).json({ message: "User not found" });
 
-    const defaultRole = await Role.findOne({name: "CLIENT"});
+    const defaultRole = await Role.findOne({ name: "CLIENT" });
     if (!defaultRole)
       return res
         .status(500)
-        .json({message: "Can't create account. No default role found."});
+        .json({ message: "Can't create account. No default role found." });
 
     const newUser = new User({
       email: decoded.email,
@@ -66,8 +68,8 @@ export const signUpConfirm = async (req, res) => {
       role: defaultRole._id,
     });
     await newUser.save();
-    await UserTemp.deleteOne({email: newUser.email});
-    // await sendValidationAccount(tempUser.email);
+    await UserTemp.deleteOne({ email: newUser.email });
+    await sendValidationAccount(tempUser.email);
     res.status(201).json({
       message: "Registration confirmed.",
       user: {
@@ -82,10 +84,10 @@ export const signUpConfirm = async (req, res) => {
       error.name === "TokenExpiredError" ||
       error.name === "JsonWebTokenError"
     ) {
-      const tempUser = await UserTemp.findOne({token});
+      const tempUser = await UserTemp.findOne({ token });
       if (tempUser) {
-        await tempUser.deleteOne({token});
-        // await sendInvalidEmailToken(tempUser.email);
+        await tempUser.deleteOne({ token });
+        await sendInvalidEmailToken(tempUser.email);
       }
       return res.redirect(`${process.env.FRONT}/register?message=error`);
     }
@@ -93,6 +95,108 @@ export const signUpConfirm = async (req, res) => {
       `${RED}Error in ${BLUE}Auth.signUpConfirm()${RED} function : ${RESET}`,
       error
     );
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const signIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    tokenCreation(user._id, "7d", res);
+    res.status(201).json({
+      _id: user._id,
+      email: user.email,
+      fullname: user.fullname,
+      role: user.role,
+    });
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Auth.signIn()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const signOut = async (req, res) => {
+  try {
+    res.cookie("jwt", "", {
+      maxAge: 0,
+    });
+    res.status(200).json({
+      message: "Logged out succesfully",
+    });
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Auth.signOut()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userToDelete = await User.findById(id).populate("role");
+
+    if (!userToDelete)
+      return res.status(404).json({ message: "User not found." });
+    //Verify if it's my account
+    if (userToDelete._id !== req.user._id) {
+      //verify if admin power
+      if (req.user.role.name !== "ADMIN") {
+        return res
+          .status(401)
+          .json({ message: "You need admin power to delete this account." });
+      }
+    }
+    const userOrders = await Order.findOne({ client: userToDelete._id });
+    if (!userOrders) {
+      await User.findByIdAndDelete(userToDelete._id);
+      return res.status(200).json({ message: "User deleted." });
+    }
+
+    //Archive user datas
+    const archivedUser = new UserArchive({
+      email: userToDelete.email,
+      fullname: userToDelete.fullname,
+    });
+    await archivedUser.save();
+    let archiveString = archivedUser._id + "@Smiley";
+    const newUserDatas = await User.findByIdAndUpdate(
+      userToDelete._id,
+      {
+        email: archiveString,
+        fullname: archiveString,
+        password: await bcrypt.hash(process.env.SECRET_KEY, 10),
+      },
+      { new: true }
+    );
+    return res
+      .status(200)
+      .json({ message: "User archived.", user: newUserDatas });
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Auth.deleteAccount()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({ message: error.message });
   }
 };

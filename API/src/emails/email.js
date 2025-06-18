@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import {emailConfirmation} from "./templates/email-confirmation.template.js";
+import { emailConfirmation } from "./templates/email-confirmation.template.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -47,7 +47,7 @@ export const sendValidationAccount = async (email) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Inscription validée",
-    html: `<p>Bienvenue sur notre site ! Cliquez sur le lien pour vous connecter : <a href="${process.env.FRONT}">Se connecter</a>.</p>`,
+    html: `<p>Bienvenue sur notre site ! Cliquez sur le lien pour vous connecter : <a href="${process.env.FRONT}/login">Se connecter</a>.</p>`,
   };
 
   await transporter.sendMail(mailOptions);
@@ -58,7 +58,7 @@ export const sendInvalideToken = async (email) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Problème lors de la validation de votre compte.",
-    html: `<p>Le temps d'inscription a expiré. Cliquez sur le lien pour vous inscrire à nouveau : <a href="${process.env.FRONT}">S'inscrire</a>.</p>`,
+    html: `<p>Le temps d'inscription a expiré. Cliquez sur le lien pour vous inscrire à nouveau : <a href="${process.env.FRONT}/register">S'inscrire</a>.</p>`,
   };
 
   await transporter.sendMail(mailOptions);
