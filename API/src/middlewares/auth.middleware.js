@@ -5,8 +5,6 @@ export const protectRoute = async (req, res, next) => {
   try {
     const token = req.cookies?.jwt;
 
-    console.log(token);
-
     if (!token) return res.status(401).json({message: "Accès non authorisé."});
 
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -47,7 +45,7 @@ export const protectAdminRoute = async (req, res, next) => {
         .status(401)
         .json({message: "Accès non authorisé. Token invalide."});
 
-    const user = await User.findById(decoded.userId)
+    const user = await User.findById(decoded.content)
       .select("-password")
       .populate("role");
     if (!user)

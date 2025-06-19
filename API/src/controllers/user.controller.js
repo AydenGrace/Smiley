@@ -4,6 +4,8 @@ import UserArchive from "../models/user-archive.model.js";
 import {tokenCreation, validateEmail} from "../lib/utils.js";
 import {sendChangeEmail} from "../emails/email.js";
 import bcrypt from "bcryptjs";
+import {BLUE, RED, RESET} from "../lib/terminalColors.js";
+import jwt from "jsonwebtoken";
 
 export const deleteAccount = async (req, res) => {
   try {
@@ -48,7 +50,7 @@ export const deleteAccount = async (req, res) => {
       .json({message: "User archived.", user: newUserDatas});
   } catch (error) {
     console.log(
-      `${RED}Error in ${BLUE}Auth.deleteAccount()${RED} function : ${RESET}`,
+      `${RED}Error in ${BLUE}User.deleteAccount()${RED} function : ${RESET}`,
       error
     );
     res.status(500).json({message: error.message});
@@ -80,7 +82,7 @@ export const updateAccount = async (req, res) => {
     return res.status(200).json({message: "Account updated."});
   } catch (error) {
     console.log(
-      `${RED}Error in ${BLUE}Auth.updateAccount()${RED} function : ${RESET}`,
+      `${RED}Error in ${BLUE}User.updateAccount()${RED} function : ${RESET}`,
       error
     );
     res.status(500).json({message: error.message});
@@ -104,7 +106,7 @@ export const changeEmail = async (req, res) => {
       return res.status(400).json({message: "Please use a correct email."});
 
     if (user.email === email)
-      return res.status(400).json({messae: "Email not modified."});
+      return res.status(400).json({message: "Email not modified."});
     const token = tokenCreation(email, "1h");
 
     await User.findByIdAndUpdate(id, {token_modify: token});
@@ -122,11 +124,32 @@ export const changeEmail = async (req, res) => {
   }
 };
 
+export const confirmChangeEmail = async (req, res) => {
+  try {
+    const {token} = req.params;
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    const user = await User.findOne({token_modify: token});
+    if (!user)
+      return res.status(404).json({message: "Operation not found or expired."});
+
+    user.email = decoded.content;
+    user.token_modify = null;
+    user.save();
+
+    res.status(200).json({message: "Email succesfully changed."});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}User.confirmChangeEmail()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error.message});
+  }
+};
+
 export const getInfos = async (req, res) => {
   try {
     const {id} = req.params;
-
-    console.log(req.user);
 
     if (!req.user._id.equals(id)) {
       if (req.user.role.name !== "ADMIN") {
@@ -135,14 +158,19 @@ export const getInfos = async (req, res) => {
         });
       }
     }
-    const user = await User.findById(id);
+    const user = await User.findById(id)
+      .select("-__v -createdAt -updatedAt -token_modify -password")
+      .populate({
+        path: "role",
+        select: ["name", "-_id"],
+      });
 
     if (!user) return res.status(404).json({message: "User not found."});
 
     return res.status(200).json(user);
   } catch (error) {
     console.log(
-      `${RED}Error in ${BLUE}Auth.changeEmail()${RED} function : ${RESET}`,
+      `${RED}Error in ${BLUE}User.getInfos()${RED} function : ${RESET}`,
       error
     );
     res.status(500).json({message: error.message});
