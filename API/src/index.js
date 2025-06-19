@@ -1,7 +1,7 @@
 import express from "express";
 
 import dotenv from "dotenv";
-import { connectionDB } from "./lib/db.js";
+import {connectionDB} from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import testAPI from "./routes/test.route.js";
@@ -13,16 +13,16 @@ import userAPI from "./routes/user.route.js";
 
 dotenv.config();
 const app = express();
-app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONT);
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type"],
+  })
+);
 app.use("/test", testAPI);
 app.use("/role", roleAPI);
 app.use("/media-type", MediaTypeAPI);

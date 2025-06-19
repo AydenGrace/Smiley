@@ -1,9 +1,17 @@
 import express from "express";
-import { deleteAccount } from "../controllers/user.controller.js";
-import { protectRoute } from "../middlewares/auth.middleware.js";
+import {
+  deleteAccount,
+  changeEmail,
+  updateAccount,
+  getInfos,
+} from "../controllers/user.controller.js";
+import {protectRoute} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
+router.get("/:id", protectRoute, getInfos);
 router.delete("/:id", protectRoute, deleteAccount);
+router.patch("/email/:id", protectRoute, changeEmail);
+router.patch("/:id", protectRoute, updateAccount);
 
 export default router;

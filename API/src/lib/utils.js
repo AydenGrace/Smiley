@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const tokenCreation = (email, expiresIn = "1d", res = null) => {
-  const token = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn });
+export const tokenCreation = (content, expiresIn = "1d", res = null) => {
+  const token = jwt.sign({content}, process.env.SECRET_KEY, {expiresIn});
 
   if (res) {
     res.cookie("jwt", token, {
@@ -18,7 +18,12 @@ export const tokenCreation = (email, expiresIn = "1d", res = null) => {
 };
 
 const convertExpireInMilli = (expiresIn = "") => {
-  let number = Number(expiresIn.replace(/^\D+/g, "").trim());
+  let number = Number(
+    expiresIn
+      .split("")
+      .filter((s) => s >= "0" && s <= "9")
+      .join("")
+  );
   let type = expiresIn.replace(/\d+/g, "").trim();
   let milli = 1;
   if (!type) return number;
@@ -36,6 +41,7 @@ const convertExpireInMilli = (expiresIn = "") => {
       milli = 1000 * 60 * 60 * 24;
       break;
   }
+
   return milli * number;
 };
 
