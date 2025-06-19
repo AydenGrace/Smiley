@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import {connectionDB} from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import testAPI from "./routes/test.route.js";
 import roleAPI from "./routes/role.route.js";
 import MediaTypeAPI from "./routes/media-type.route.js";
 import ArticleTypeAPI from "./routes/article-type.route.js";
@@ -23,7 +22,6 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
-app.use("/test", testAPI);
 app.use("/role", roleAPI);
 app.use("/media-type", MediaTypeAPI);
 app.use("/article-type", ArticleTypeAPI);
