@@ -1,6 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import App from "./App";
 import Homepage from "./pages/Homepage";
+import {rootLoader} from "./loaders/rootLoader";
 
 export const router = createBrowserRouter([
   {
@@ -8,6 +9,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+        loader: rootLoader,
         children: [
           {
             path: "/",

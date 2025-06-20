@@ -40,33 +40,34 @@ export default function Burger({children, closeTrigger}) {
 
   return (
     <>
+      <style></style>
       <div
         className={`flex flex-col gap-1 z-50 cursor-pointer`}
         onClick={toggleBurger}
       >
         <figure
           id="burger-BurgerTopLine"
-          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-secondary"
+          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-primary"
         ></figure>
         <figure
           id="burger-BurgerMiddleLine"
-          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-secondary"
+          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-primary"
         ></figure>
         <figure
           id="burger-BurgerBottomLine"
-          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-secondary"
+          className="transition-all duration-750 ease-in-out w-7 h-1 rounded-2xl bg-primary"
         ></figure>
       </div>
       <div
         id="burger-Overlay"
-        className={`flex opacity-0 animated absolute top-0 left-0 w-screen h-screen bg-black/40 z-20 ${
+        className={`flex opacity-0 transition-all duration-750 ease-in-out absolute top-0 left-0 w-screen h-screen bg-black/40 z-20 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
         onClick={toggleBurger}
       ></div>
       <nav
         id="burger-MobileNav"
-        className={`transition-all duration-750 ease-in-out z-30 bg-antracite absolute flex h-screen top-0 right-0 max-w-[75%] min-w-[250px] p-4 items-end flex-col pt-20 ${
+        className={`transition-all duration-750 ease-in-out z-30 bg-bg absolute flex h-screen top-0 right-0 max-w-[75%] min-w-[250px] p-4 items-end flex-col pt-20 ${
           !open && "translate-x-[100%]"
         }`}
       >

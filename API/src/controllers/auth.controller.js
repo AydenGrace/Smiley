@@ -155,3 +155,27 @@ export const signOut = async (req, res) => {
     res.status(500).json({message: error.message});
   }
 };
+
+export const current = async (req, res) => {
+  try {
+    const token = req.cookies?.jwt;
+
+    if (!token) return res.status(200).json(null);
+
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    if (!decoded) return res.status(200).json(null);
+
+    const user = await User.findById(decoded.content)
+      .select("-password")
+      .populate("role", "name");
+    if (!user) return res.status(200).json(null);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Auth.current()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error.message});
+  }
+};
