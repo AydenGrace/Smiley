@@ -9,6 +9,10 @@ import MediaTypeAPI from "./routes/media-type.route.js";
 import ArticleTypeAPI from "./routes/article-type.route.js";
 import authAPI from "./routes/auth.route.js";
 import userAPI from "./routes/user.route.js";
+import mediaAPI from "./routes/media.route.js";
+import articleAPI from "./routes/article.route.js";
+
+import {init} from "./init.js";
 
 dotenv.config();
 const app = express();
@@ -27,6 +31,11 @@ app.use("/media-type", MediaTypeAPI);
 app.use("/article-type", ArticleTypeAPI);
 app.use("/auth", authAPI);
 app.use("/user", userAPI);
+app.use("/media", mediaAPI);
+app.use("/article", articleAPI);
+
+//INIT DATAS
+init();
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running.");

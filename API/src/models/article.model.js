@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
     },
     stars: {
       type: Number,
-      required: true,
+      default: 0,
       min: 0,
     },
     price: {
@@ -41,9 +41,8 @@ const schema = new mongoose.Schema(
     },
     medias: [
       {
-        media: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "media",
+        url: {
+          type: String,
           required: true,
         },
         is_main: {

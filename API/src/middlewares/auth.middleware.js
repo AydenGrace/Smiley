@@ -53,7 +53,9 @@ export const protectAdminRoute = async (req, res, next) => {
         .status(401)
         .json({message: "Accès non authorisé. Utilisateur inconnu."});
 
-    if (!user.role.name !== "ADMIN")
+    console.log(user);
+
+    if (user.role.name !== "ADMIN")
       return res
         .status(401)
         .json({message: "Accès non authorisé. Droits insuffisants."});

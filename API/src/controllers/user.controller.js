@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import Order from "../models/order.model.js";
 import UserArchive from "../models/user-archive.model.js";
-import {tokenCreation, validateEmail} from "../lib/utils.js";
+import {tokenCreation, validateEmail, validatePassword} from "../lib/utils.js";
 import {sendChangeEmail} from "../emails/email.js";
 import bcrypt from "bcryptjs";
 import {BLUE, RED, RESET} from "../lib/terminalColors.js";
@@ -168,6 +168,38 @@ export const getInfos = async (req, res) => {
     if (!user) return res.status(404).json({message: "User not found."});
 
     return res.status(200).json(user);
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}User.getInfos()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error.message});
+  }
+};
+
+export const changePwdAlreadyConnected = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {oldPwd, newPwd} = req.body;
+    const user = await User.findById(id);
+    //Not me
+    if (!req.user._id.equals(id))
+      return res
+        .status(401)
+        .json({message: "You can only change your password."});
+    // Not found
+    if (!user) return res.status(404).json({message: "User not found."});
+    // Bad old Pwd
+    if (await bcrypt.compare(oldPwd, user.password))
+      return res.status(400).json({message: "Bad credentials."});
+    // New Pwd Not validate
+    if (!validatePassword(newPwd))
+      return res.status(400).json({message: "To week password."});
+
+    // Modifications
+    user.password = await bcrypt.hash(newPwd, 10);
+    await user.save();
+    return res.status(200).json({message: "Password succesfully modified."});
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}User.getInfos()${RED} function : ${RESET}`,

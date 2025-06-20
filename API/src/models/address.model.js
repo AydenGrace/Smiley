@@ -6,6 +6,9 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    further: {
+      type: String,
+    },
     street: {
       type: String,
     },
