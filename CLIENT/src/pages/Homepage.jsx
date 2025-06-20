@@ -4,6 +4,7 @@ import SubTitle from "../components/SubTitle";
 import Button from "../components/Button";
 import {HiOutlineChartPie} from "react-icons/hi2";
 import ImagesRow from "../components/ImagesRow";
+import TitleTwo from "../components/TitleTwo";
 
 export default function Homepage() {
   const FirstRow = [
@@ -76,6 +77,7 @@ export default function Homepage() {
   ];
   return (
     <div className="flex flex-col w-full min-h-screen bg-bg">
+      {/* LANDING SECTION */}
       <section className="flex flex-col overflow-x-hidden py-[112px] items-center gap-[80px] justify-center">
         <div className="flex flex-col items-center gap-8 max-w-1/2">
           <div className="flex flex-col items-center gap-6 self-stretch text-center">
@@ -105,6 +107,17 @@ export default function Homepage() {
           <div className="relative flex flex-col gap-4 w-full min-h-[205px]md:min-h-[300px] lg:min-h-[415px]">
             <ImagesRow images={SecondRow} left="-50px" />
           </div>
+        </div>
+      </section>
+      {/* END LANDING SECTION */}
+      {/* BLOG SECTION */}
+      <section className="w-full px-16 py-28 flex flex-col items-start gap-[80px]">
+        <div className="flex max-w-1/2">
+          <TitleTwo>
+            Des impressions{" "}
+            <span className="text-primary">écoresponsables</span> qui apportent
+            joie et bonheur à chaque occasion.
+          </TitleTwo>
         </div>
       </section>
     </div>
