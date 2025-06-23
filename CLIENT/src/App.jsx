@@ -1,6 +1,7 @@
-import {Outlet} from "react-router-dom";
+import {Outlet, ScrollRestoration} from "react-router-dom";
 import Header from "./components/Header";
 import UserProvider from "./Providers/UserProvider";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -9,6 +10,8 @@ function App() {
         <UserProvider>
           <Header />
           <Outlet />
+          <Footer />
+          <ScrollRestoration />
         </UserProvider>
       </main>
     </>

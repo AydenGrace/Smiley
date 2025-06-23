@@ -7,8 +7,8 @@ export default function ImagesRow({images, left = "-500px"}) {
       className={`absolute left-[${left}] flex items-start gap-4`}
       style={{left: left}}
     >
-      {images.map((img) => (
-        <ImageBlock url={img.url} />
+      {images.map((img, idx) => (
+        <ImageBlock url={img.url} key={`${idx}_${img.url}`} />
       ))}
     </div>
   );

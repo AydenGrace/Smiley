@@ -1,0 +1,23 @@
+[
+  {
+    "img": "https://gahtfyaqzgunbhepuitf.supabase.co/storage/v1/object/public/smiley//blog_1.webp",
+    "title": "Des designs uniques qui font sourire et illuminent votre quotidien.",
+    "desc": "Chaque produit est fabriqué à partir de papier recyclé, respectueux de l'environnement.",
+    "btnText": "Découvrir",
+    "url": "/"
+  },
+  {
+    "img": "https://gahtfyaqzgunbhepuitf.supabase.co/storage/v1/object/public/smiley//blog_2.webp",
+    "title": "Des messages inspirants pour partager la joie avec vos proches.",
+    "desc": "Nos impressions sont conçues pour transmettre des émotions positives et de l'amour.",
+    "btnText": "Explorer",
+    "url": "/"
+  },
+  {
+    "img": "https://gahtfyaqzgunbhepuitf.supabase.co/storage/v1/object/public/smiley//blog_3.webp",
+    "title": "Un engagement envers la durabilité et le bonheur à chaque impression.",
+    "desc": "Choisissez des produits qui font la différence pour vous et la planète.",
+    "btnText": "Acheter",
+    "url": "/"
+  }
+]

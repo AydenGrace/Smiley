@@ -2,6 +2,10 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "./App";
 import Homepage from "./pages/Homepage";
 import {rootLoader} from "./loaders/rootLoader";
+import Privacy from "./pages/Privacy";
+import Legals from "./pages/Legals";
+import Terms from "./pages/Terms";
+import About from "./pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +18,22 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <Homepage />,
+          },
+          {
+            path: "/privacy",
+            element: <Privacy />,
+          },
+          {
+            path: "/legals",
+            element: <Legals />,
+          },
+          {
+            path: "/terms",
+            element: <Terms />,
+          },
+          {
+            path: "/about",
+            element: <About />,
           },
         ],
       },

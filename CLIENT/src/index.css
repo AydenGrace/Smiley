@@ -9,6 +9,11 @@
   --title-font-family: "Gabarito", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+  font-family: var(--font-display);
+}
+
 h1,
 h2,
 h3,
@@ -20,11 +25,22 @@ p {
   font-family: var(--font-display);
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   background-color: var(--color-bg);
+}
+
+input {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #eee;
+  padding: 10px;
+  &:focus-visible {
+    outline: 1px solid var(--color-primary);
+    border-radius: 10px;
+  }
+  &::placeholder {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+  }
 }

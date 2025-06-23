@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed flex w-full items-center justify-between py-4 px-4 lg:px-16 bg-white z-50`}
+      className={`fixed flex w-full max-w-screen items-center justify-between py-4 px-4 lg:px-16 bg-white z-50`}
     >
       <Link to={"/"}>
         <img
@@ -31,7 +31,7 @@ export default function Header() {
           <NavLink to={"/"}>
             <Button text="Boutique" isEmpty />
           </NavLink>
-          <NavLink to={"/"}>
+          <NavLink to={"/about"}>
             <Button text="À Propos" isEmpty />
           </NavLink>
           <NavLink to={"/"}>
@@ -77,7 +77,7 @@ export default function Header() {
               Boutique
             </NavLink>
             <NavLink
-              to={"/"}
+              to={"/about"}
               onClick={() => setOpened(Math.random())}
               className={"mb-4"}
             >
