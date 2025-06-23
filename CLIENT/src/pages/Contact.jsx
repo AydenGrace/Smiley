@@ -15,11 +15,11 @@ export default function Contact() {
           </Title>
           <SubTitle>
             Vous souhaitez nous contacter pour avoir des informations ? Signaler
-            un problème ? ou encore nous envoyer des mots doux ? N’hésitez pas à
+            un problème ? Ou encore nous envoyer des mots doux ? N’hésitez pas à
             utiliser le formulaire ci-dessous !
           </SubTitle>
         </div>
-        <form className="w-full flex flex-col gap-4">
+        <form className="w-full flex flex-col gap-4 mb-4">
           <div className="w-full flex gap-4 flex-col sm:flex-row">
             <div className="w-full max-w-[640px]">
               <Input label={"Votre nom"} type="text" placeholder="John Doe" />

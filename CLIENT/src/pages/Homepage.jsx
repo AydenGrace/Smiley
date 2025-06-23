@@ -89,7 +89,7 @@ export default function Homepage() {
           <div className="flex flex-col items-center gap-5 md:gap-6 self-stretch text-center">
             <Title>
               Découvrez la joie avec{" "}
-              <span className="text-primary">Smiley</span>
+              <span className="text-primary font-semibold">Smiley</span>
             </Title>
             <SubTitle>
               Chez Smiley, nous croyons que chaque message compte. Explorez
@@ -100,10 +100,12 @@ export default function Homepage() {
           </div>
           <div className="flex w-full justify-center items-center gap-4">
             <Button isFull text="Explorer" />
-            <Button
-              icon={<HiOutlineChartPie size={"24px"} />}
-              text="En savoir plus"
-            />
+            <Link to={"/about"}>
+              <Button
+                icon={<HiOutlineChartPie size={"24px"} />}
+                text="En savoir plus"
+              />
+            </Link>
           </div>
         </div>
         <div className="w-full max-w-screen overflow-hidden flex flex-col gap-4 ">
@@ -121,8 +123,8 @@ export default function Homepage() {
         <div className="flex md:max-w-1/2">
           <TitleTwo>
             Des impressions{" "}
-            <span className="text-primary">écoresponsables</span> qui apportent
-            joie et bonheur à chaque occasion.
+            <span className="text-primary font-semibold">écoresponsables</span>{" "}
+            qui apportent joie et bonheur à chaque occasion.
           </TitleTwo>
         </div>
         <div className="flex flex-wrap w-full gap-12 justify-center">
@@ -143,8 +145,8 @@ export default function Homepage() {
           <div className="flex flex-col w-full gap-6">
             <TitleTwo>
               Découvrez les avantages d'acheter chez{" "}
-              <span className="text-primary">Smiley </span> pour un monde
-              meilleur.
+              <span className="text-primary font-semibold">Smiley </span> pour
+              un monde meilleur.
             </TitleTwo>
             <p>
               En choisissant Smiley, vous soutenez des pratiques écologiques
@@ -190,7 +192,7 @@ export default function Homepage() {
             <div className="flex flex-col w-full gap-6">
               <TitleTwo>
                 Découvrez nos produits qui apportent de la{" "}
-                <span className="text-primary">joie</span>
+                <span className="text-primary font-semibold">joie</span>
               </TitleTwo>
               <p>
                 Explorez notre sélection de cartes et d'emballages uniques,
@@ -204,7 +206,7 @@ export default function Homepage() {
             <Link to={"/"}>
               <Button text="Acheter" icon={<BiRun size={"24px"} />} />
             </Link>
-            <Link className="w-full flex gap-2 items-center" to={"/"}>
+            <Link className="w-full flex gap-2 items-center" to={"/about"}>
               <p className="font-medium">En savoir plus</p>
               <FaChevronRight size={16} />
             </Link>
@@ -221,7 +223,8 @@ export default function Homepage() {
       <section className="w-full px-5 lg:px-16 py-8 md:py-14 flex flex-col md:flex-row items-center gap-[80px]">
         <article className="w-full flex flex-col gap-6">
           <TitleTwo>
-            Restez informé avec <span className="text-primary">Smiley</span>
+            Restez informé avec{" "}
+            <span className="text-primary font-semibold">Smiley</span>
           </TitleTwo>
           <p>Recevez des nouvelles et des offres exclusives.</p>
         </article>
