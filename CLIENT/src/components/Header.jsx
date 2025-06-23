@@ -34,7 +34,7 @@ export default function Header() {
           <NavLink to={"/about"}>
             <Button text="À Propos" isEmpty />
           </NavLink>
-          <NavLink to={"/"}>
+          <NavLink to={"/contact"}>
             <Button text="Contactez Nous" isEmpty />
           </NavLink>
           <NavLink to={"/"}>

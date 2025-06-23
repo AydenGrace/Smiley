@@ -122,10 +122,8 @@ export default function About() {
                 stocker des articles numériques dans des serveurs n’est pas
                 spécialement mieux. C’est pourquoi nous avons revu notre idée de
                 base afin de la faire évoluer. Maintenant ce ne seront plus que
-                de simples cartes ou packagings, mais des cartes entièrement
-                <span className="text-primary  font-semibold">
-                  recyclées{" "}
-                </span>{" "}
+                de simples cartes ou packagings, mais des cartes entièrement{" "}
+                <span className="text-primary  font-semibold">recyclées </span>{" "}
                 et des emballages{" "}
                 <span className="text-primary  font-semibold">
                   réutilisables{" "}

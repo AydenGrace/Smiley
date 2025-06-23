@@ -25,7 +25,7 @@ export default function Footer() {
           <Link to={"/about"}>
             <Button text="À Propos" isEmpty />
           </Link>
-          <Link to={"/"}>
+          <Link to={"/contact"}>
             <Button text="Contactez Nous" isEmpty />
           </Link>
           {user ? (
