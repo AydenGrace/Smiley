@@ -14,7 +14,7 @@ import articleAPI from "./routes/article.route.js";
 
 import {init} from "./init.js";
 
-const path = require("path");
+import path from "path";
 
 const __DIRNAME = path.resolve();
 
