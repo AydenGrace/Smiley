@@ -23,7 +23,7 @@ export default function Button({
               !isEmpty
                 ? !isFull
                   ? colored
-                    ? "bg-white text-primary border-[1px] border-primary hover:bg-primary hover:text-white font-medium"
+                    ? "bg-white text-primary border-[1px] border-primary hover:bg-primary hover:text-white hover:border-white font-medium"
                     : "bg-white text-black border-[1px] border-black/15 hover:border-primary hover:text-primary font-medium"
                   : "text-white bg-primary border-[1px] border-primary hover:bg-white hover:text-primary font-medium"
                 : "text-black hover:text-primary"

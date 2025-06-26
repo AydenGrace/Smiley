@@ -1,7 +1,9 @@
 import React from "react";
 import ShopCard from "../components/ShopCard";
-import {useLoaderData} from "react-router-dom";
+import {Link, useLoaderData} from "react-router-dom";
 import TitleTwo from "../components/TitleTwo";
+import Button from "../components/Button";
+import {BiRun} from "react-icons/bi";
 
 export default function Shop() {
   const articles = useLoaderData();
@@ -11,8 +13,22 @@ export default function Shop() {
     <div className="flex flex-col p-4 w-full min-h-screen">
       <div className="w-full h-[70px]"></div>
       <h1 className="hidden">Boutique en ligne</h1>
+      <section className="text-white rounded-[10px] w-full flex flex-col p-4 bg-gradient-to-r from-primary to-primary-dark ">
+        <TitleTwo>Collection d'automne 2025</TitleTwo>
+        <p>
+          Découvrez nos derniers articles en dates pour cette magnifique saison
+          !
+        </p>
+        <Link to={"/shop"} className="mt-4">
+          <Button
+            colored
+            text="Découvrez nos articles"
+            icon={<BiRun size={24} />}
+          />
+        </Link>
+      </section>
       {featured.length && (
-        <section className="w-full flex flex-col gap-2.5">
+        <section className="w-full flex flex-col gap-2.5 mb-4">
           <TitleTwo>
             Articles en{" "}
             <span className="text-primary font-semibold">Vedette</span>

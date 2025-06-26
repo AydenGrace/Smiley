@@ -204,7 +204,7 @@ export default function Homepage() {
           </div>
           <div className="flex gap-6 w-full">
             <Link to={"/shop"}>
-              <Button text="Acheter" icon={<BiRun size={"24px"} />} />
+              <Button text="Acheter" colored icon={<BiRun size={"24px"} />} />
             </Link>
             <Link className="w-full flex gap-2 items-center" to={"/about"}>
               <p className="font-medium">En savoir plus</p>
