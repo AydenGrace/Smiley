@@ -44,7 +44,7 @@ export default function ShopCard({
 
   return (
     <article
-      className={`relative flex flex-col rounded-[10px] aspect-[56/75] overflow-hidden ${
+      className={`relative flex flex-col rounded-[10px] aspect-[56/75] overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
         product.is_featured && !staticSize
           ? "w-[335px] md:w-[440px] md:max-w-1/3"
           : "w-[335px]"

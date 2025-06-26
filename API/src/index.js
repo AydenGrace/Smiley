@@ -14,6 +14,10 @@ import articleAPI from "./routes/article.route.js";
 
 import {init} from "./init.js";
 
+const path = require("path");
+
+const __DIRNAME = path.resolve();
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -26,6 +30,8 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
+app.use(express.static(path.join(__DIRNAME, "CLIENT/dist")));
+
 app.use("/role", roleAPI);
 app.use("/media-type", MediaTypeAPI);
 app.use("/article-type", ArticleTypeAPI);
@@ -33,6 +39,10 @@ app.use("/auth", authAPI);
 app.use("/user", userAPI);
 app.use("/media", mediaAPI);
 app.use("/article", articleAPI);
+
+app.get(/(.*)/, (req, res) => {
+  res.sendFile(path.join(__DIRNAME, "CLIENT", "dist", "index.html"));
+});
 
 //INIT DATAS
 init();

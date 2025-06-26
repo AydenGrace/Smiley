@@ -28,7 +28,7 @@ export default function Shop() {
         </Link>
       </section>
       {featured.length && (
-        <section className="w-full flex flex-col gap-2.5 mb-4">
+        <section className="w-full flex flex-col gap-2.5 my-4">
           <TitleTwo>
             Articles en{" "}
             <span className="text-primary font-semibold">Vedette</span>
