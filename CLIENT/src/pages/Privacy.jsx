@@ -376,7 +376,7 @@ export default function Privacy() {
           Crabbé Pierre-Alexandre
           <br />
           Rue de l’université, Verquigneul, France
-          <br />
+          <br id="cookies" />
           confidentialite@risus.fr{" "}
         </p>
       </section>

@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import { mtConfig } from "@material-tailwind/react";
+import {mtConfig} from "@material-tailwind/react";
 export default {
   content: [
     "./index.html",
@@ -9,6 +9,9 @@ export default {
   theme: {
     extend: {
       backgroundOpacity: ["active"],
+      transitionProperty: {
+        "width": "width",
+      },
     },
   },
   plugins: [mtConfig],

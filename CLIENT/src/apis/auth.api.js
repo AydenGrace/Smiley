@@ -7,10 +7,12 @@ export async function signin(values) {
       body: JSON.stringify(values),
       headers: {
         "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
       },
       credentials: "include",
     });
     const userConnected = await response.json();
+
     // soit on récupère un utilisateur, soit un message
     return userConnected;
   } catch (error) {
@@ -25,6 +27,7 @@ export async function signup(values) {
       body: JSON.stringify(values),
       headers: {
         "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
       },
     });
     const message = await response.json();
@@ -40,8 +43,13 @@ export async function getCurrentUser() {
   try {
     const response = await fetch(`${BASE_URL}/current`, {
       method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
       credentials: "include",
     });
+
     if (response.ok) {
       return await response.json();
     } else {

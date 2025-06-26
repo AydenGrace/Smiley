@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import UserProvider from "./Providers/UserProvider";
 import Footer from "./components/Footer";
 import {Toaster} from "react-hot-toast";
+// import Cookies from "./components/Cookies";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         </UserProvider>
       </main>
       <Toaster position="bottom-right" />
+      {/* <Cookies /> */}
     </>
   );
 }

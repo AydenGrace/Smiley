@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {UserContext} from "../context/UserContext";
 import {useLoaderData} from "react-router-dom";
 import {signin} from "../apis/auth.api";
@@ -7,6 +7,14 @@ import toast from "react-hot-toast";
 export default function UserProvider({children}) {
   const initialUser = useLoaderData();
   const [user, setUser] = useState(initialUser);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    if (user.role._id === import.meta.env.VITE_ADMIN_UUID) {
+      setIsAdmin(true);
+    } else setIsAdmin(false);
+  }, [user]);
 
   const login = async (credentials) => {
     const response = await signin(credentials);
@@ -29,6 +37,7 @@ export default function UserProvider({children}) {
     <UserContext.Provider
       value={{
         user,
+        isAdmin,
         login,
         logout,
       }}

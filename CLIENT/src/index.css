@@ -54,3 +54,8 @@ input {
   right: 3px;
   top: -2px;
 }
+
+.active {
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}

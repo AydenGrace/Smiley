@@ -60,7 +60,7 @@ export default function ShopCard({
         <img
           src={imgURL}
           alt={product.title}
-          className="object-cover object-center hover:scale-120 z-10 animated transition-all duration-750 ease-in-out cursor-pointer"
+          className="object-cover object-center hover:scale-120 z-10 transition-all duration-750 ease-in-out cursor-pointer"
         />
       </div>
       <div className="flex w-full flex-col p-4 pt-2.5 bg-white z-20">

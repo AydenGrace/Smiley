@@ -11,6 +11,11 @@ import Shop from "./pages/Shop";
 import {shopLoader} from "./loaders/shopLoader";
 import Login from "./pages/Login";
 import UserNotConnected from "./secure/UserNotConnected";
+import UserConnected from "./secure/UserConnected";
+import Account from "./pages/Account";
+import AccountOrders from "./pages/AccountOrders";
+import AccountFavorites from "./pages/AccountFavorites";
+import AccountSettings from "./pages/AccountSettings";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +58,28 @@ export const router = createBrowserRouter([
             <Login />
           </UserNotConnected>
         ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <UserConnected>
+            <Account />
+          </UserConnected>
+        ),
+        children: [
+          {
+            index: 1,
+            element: <AccountOrders />,
+          },
+          {
+            path: "favorites",
+            element: <AccountFavorites />,
+          },
+          {
+            path: "settings",
+            element: <AccountSettings />,
+          },
+        ],
       },
     ],
   },
