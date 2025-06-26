@@ -10,6 +10,8 @@ export default function Input({
   isTextArea = false,
   rows = 5,
   getValueOnChange = () => {},
+  yup = null,
+  yupError = null,
 }) {
   const [value, setValue] = useState("");
   const [localType, setlocalType] = useState(type);
@@ -18,6 +20,7 @@ export default function Input({
   useEffect(() => {
     getValueOnChange(value);
   }, [value]);
+
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
@@ -37,14 +40,25 @@ export default function Input({
         ></textarea>
       ) : (
         <div className="relative">
-          <input
-            id={`${type}_${RANDOM}`}
-            type={localType}
-            value={value}
-            className={`w-full`}
-            placeholder={placeholder}
-            onChange={(e) => setValue(e.target.value)}
-          />
+          {yup ? (
+            <input
+              {...yup}
+              id={`${type}_${RANDOM}`}
+              type={localType}
+              className={`w-full`}
+              placeholder={placeholder}
+            />
+          ) : (
+            <input
+              id={`${type}_${RANDOM}`}
+              type={localType}
+              value={value}
+              className={`w-full`}
+              placeholder={placeholder}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          )}
+
           {type === "password" && (
             <div className="absolute top-3.5 right-4 cursor-pointer text-primary">
               {localType === "password" ? (
@@ -59,6 +73,7 @@ export default function Input({
           )}
         </div>
       )}
+      {yupError && <p className="text-red-500 text-xs">{yupError.message}</p>}
     </div>
   );
 }
