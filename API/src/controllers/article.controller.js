@@ -64,3 +64,15 @@ export const post = async (req, res) => {
     res.status(500).json({message: error.message});
   }
 };
+
+export const get = async (req, res) => {
+  try {
+    res.status(200).json(await Article.find().populate("type"));
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Article.post()${RED} function : ${RESET}`,
+      error.message
+    );
+    res.status(500).json({message: error.message});
+  }
+};

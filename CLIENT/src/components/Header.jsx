@@ -28,7 +28,7 @@ export default function Header() {
           <NavLink to={"/"}>
             <Button text="Accueil" isEmpty />
           </NavLink>
-          <NavLink to={"/"}>
+          <NavLink to={"/shop"}>
             <Button text="Boutique" isEmpty />
           </NavLink>
           <NavLink to={"/about"}>
@@ -37,11 +37,11 @@ export default function Header() {
           <NavLink to={"/contact"}>
             <Button text="Contactez Nous" isEmpty />
           </NavLink>
-          <NavLink to={"/"}>
+          <NavLink to={"/cart"}>
             <Button text="Panier" icon={<AiOutlineShopping size={"24px"} />} />
           </NavLink>
           {user?.role?.name?.toUpperCase() === "ADMIN" && (
-            <NavLink to={"/"}>
+            <NavLink to={"/admin"}>
               <Button
                 text="Administrateur"
                 icon={<HiOutlineChartPie size={"24px"} />}
@@ -50,12 +50,12 @@ export default function Header() {
           )}
 
           {user && (
-            <NavLink to={"/"}>
+            <NavLink to={"/profile"}>
               <Button icon={<LuUserRound size={"24px"} />} isRounded />
             </NavLink>
           )}
           {!user && (
-            <NavLink to={"/"}>
+            <NavLink to={"/login"}>
               <Button text="Connexion" isFull />
             </NavLink>
           )}
@@ -70,7 +70,7 @@ export default function Header() {
               Accueil
             </NavLink>
             <NavLink
-              to={"/"}
+              to={"/shop"}
               onClick={() => setOpened(Math.random())}
               className={"mb-4"}
             >
@@ -84,14 +84,14 @@ export default function Header() {
               À Propos
             </NavLink>
             <NavLink
-              to={"/"}
+              to={"/contact"}
               onClick={() => setOpened(Math.random())}
               className={"mb-4"}
             >
               Contactez Nous
             </NavLink>
             <NavLink
-              to={"/"}
+              to={"/cart"}
               onClick={() => setOpened(Math.random())}
               className={"mb-4"}
             >
@@ -101,7 +101,7 @@ export default function Header() {
               />
             </NavLink>
             {user?.role?.name?.toUpperCase() === "ADMIN" && (
-              <NavLink to={"/"} className={"mb-4"}>
+              <NavLink to={"/admin"} className={"mb-4"}>
                 <Button
                   text="Administrateur"
                   icon={<HiOutlineChartPie size={"24px"} />}
@@ -110,7 +110,7 @@ export default function Header() {
             )}
 
             {user && (
-              <NavLink to={"/"} className={"mb-4"}>
+              <NavLink to={"/profile"} className={"mb-4"}>
                 <Button
                   text="Profil"
                   icon={<HiOutlineChartPie size={"24px"} />}
@@ -120,7 +120,7 @@ export default function Header() {
             {!user && (
               <>
                 <div className="flex-1 flex w-full"></div>
-                <NavLink to={"/"} className={"w-full flex justify-center"}>
+                <NavLink to={"/login"} className={"w-full flex justify-center"}>
                   <Button text="Connexion" isFull />
                 </NavLink>
               </>

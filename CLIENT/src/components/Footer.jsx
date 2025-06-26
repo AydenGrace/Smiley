@@ -19,7 +19,7 @@ export default function Footer() {
           <Link to={"/"}>
             <Button text="Accueil" isEmpty />
           </Link>
-          <Link to={"/"}>
+          <Link to={"/shop"}>
             <Button text="Boutique" isEmpty />
           </Link>
           <Link to={"/about"}>
@@ -29,11 +29,11 @@ export default function Footer() {
             <Button text="Contactez Nous" isEmpty />
           </Link>
           {user ? (
-            <Link to={"/"}>
+            <Link to={"/profile"}>
               <Button text="Paramètres" isEmpty />
             </Link>
           ) : (
-            <Link to={"/"}>
+            <Link to={"/login"}>
               <Button text="Connexion" isEmpty />
             </Link>
           )}
