@@ -582,38 +582,38 @@ export default function Terms() {
           Dans un objectif de lutte contre les fraudes, tout Produit d’une
           valeur unitaire de plus de 50 euros, font toutefois l’objet de règles
           de retour particulières décrites ci-dessous :
-          <ul className="list-disc pl-5">
-            <li>
-              Les étiquettes de retour ne sont pas disponibles pour ces
-              Produits. Nous vous laissons le soin de retourner votre Produit
-              selon les autres modes de retour qui vous seront proposés pour
-              chacun de ces produits.
-            </li>
-            <li>
-              Afin de lutter contre toute tentative de fraude, le Vendeur est en
-              droit de demander toute pièce justificative au Client tels que la
-              copie de sa carte d’identité, le numéro de série du Produit s’il
-              en est pourvu, ainsi que le dépôt de plainte effectué par le
-              Client si sa réclamation concerne un vol du Produit reçu (ex :
-              colis reçu vide) avant d’accorder, le cas échéant en fonction du
-              Produit, une étiquette retour ou un remboursement.
-            </li>
-            <li>
-              Lorsque le colis a été remis contre signature ou en contrepartie
-              d’un code sécurisé, toute réclamation concernant la prétendue
-              non-réception dudit colis ne sera pas prise en compte par le
-              Vendeur. Tout comme la réception d’un colis prétendument vide le
-              Client ayant dans ce cas nécessairement réceptionné son colis et
-              ayant été en mesure d’évaluer et de constater, dès sa réception,
-              si ce colis est plein ou vide du fait de son poids notamment.
-            </li>
-            <li>
-              Le remboursement sera accordé à réception du colis déclaré non
-              conforme au sein de l’entrepôt du Vendeur afin de permettre à
-              celui-ci de vérifier la réalité de cette non-conformité.
-            </li>
-          </ul>
         </p>
+        <ul className="list-disc pl-5">
+          <li>
+            Les étiquettes de retour ne sont pas disponibles pour ces Produits.
+            Nous vous laissons le soin de retourner votre Produit selon les
+            autres modes de retour qui vous seront proposés pour chacun de ces
+            produits.
+          </li>
+          <li>
+            Afin de lutter contre toute tentative de fraude, le Vendeur est en
+            droit de demander toute pièce justificative au Client tels que la
+            copie de sa carte d’identité, le numéro de série du Produit s’il en
+            est pourvu, ainsi que le dépôt de plainte effectué par le Client si
+            sa réclamation concerne un vol du Produit reçu (ex : colis reçu
+            vide) avant d’accorder, le cas échéant en fonction du Produit, une
+            étiquette retour ou un remboursement.
+          </li>
+          <li>
+            Lorsque le colis a été remis contre signature ou en contrepartie
+            d’un code sécurisé, toute réclamation concernant la prétendue
+            non-réception dudit colis ne sera pas prise en compte par le
+            Vendeur. Tout comme la réception d’un colis prétendument vide le
+            Client ayant dans ce cas nécessairement réceptionné son colis et
+            ayant été en mesure d’évaluer et de constater, dès sa réception, si
+            ce colis est plein ou vide du fait de son poids notamment.
+          </li>
+          <li>
+            Le remboursement sera accordé à réception du colis déclaré non
+            conforme au sein de l’entrepôt du Vendeur afin de permettre à
+            celui-ci de vérifier la réalité de cette non-conformité.
+          </li>
+        </ul>
       </section>
 
       <section className="w-full flex flex-col gap-4">
@@ -640,38 +640,34 @@ export default function Terms() {
           d’exercer votre droit de rétractation pendant un délai de trente (30)
           jours à compter de la date de réception de votre commande.
         </p>
-        <p>
-          Ce délai court à compter du jour :
-          <ul className="list-disc pl-5">
-            <li>
-              De la conclusion du contrat pour les contrats de prestation de
-              services
-            </li>
-            <li>
-              De la remise du Produit au Client ou à un tiers, autre que le
-              transporteur, désigné par lui, pour les Commandes de Produits
-              incluant la livraison.
-            </li>
-          </ul>
-        </p>
-        <p>
-          Il est précisé que :
-          <ul className="list-disc pl-5">
-            <li>
-              Le jour de la remise du Produit n’est pas compté dans le délai
-              susvisé ;
-            </li>
-            <li>
-              Le délai commence à courir au début de la première heure du
-              premier jour et prend fin à l’expiration de la dernière heure du
-              dernier jour du délai ;
-            </li>
-            <li>
-              Si ce délai expire un samedi, un dimanche ou un jour férié ou
-              chômé, il est prorogé jusqu’au premier jour ouvrable suivant.
-            </li>
-          </ul>
-        </p>
+        <p>Ce délai court à compter du jour :</p>
+        <ul className="list-disc pl-5">
+          <li>
+            De la conclusion du contrat pour les contrats de prestation de
+            services
+          </li>
+          <li>
+            De la remise du Produit au Client ou à un tiers, autre que le
+            transporteur, désigné par lui, pour les Commandes de Produits
+            incluant la livraison.
+          </li>
+        </ul>
+        <p>Il est précisé que :</p>
+        <ul className="list-disc pl-5">
+          <li>
+            Le jour de la remise du Produit n’est pas compté dans le délai
+            susvisé ;
+          </li>
+          <li>
+            Le délai commence à courir au début de la première heure du premier
+            jour et prend fin à l’expiration de la dernière heure du dernier
+            jour du délai ;
+          </li>
+          <li>
+            Si ce délai expire un samedi, un dimanche ou un jour férié ou chômé,
+            il est prorogé jusqu’au premier jour ouvrable suivant.
+          </li>
+        </ul>
         <p>
           Dans le cas d’une Commande portant sur plusieurs Produits livrés
           séparément ou dans le cas d’une commande d’un Produit composé de lots
@@ -787,53 +783,53 @@ export default function Terms() {
         <p>
           En vertu de l’article L.221-28 du Code de la consommation, le droit de
           rétractation ne peut pas être exercé pour les contrats suivants :{" "}
-          <ul className="list-disc pl-5">
-            <li>
-              De fourniture de services pleinement exécutés avant la fin du
-              délai de rétractation et dont l’exécution a commencé après accord
-              préalable exprès du Client et renoncement exprès à son droit de
-              rétractation ;
-            </li>
-            <li>
-              De fourniture de Produits confectionnés selon les spécifications
-              du Client ou nettement personnalisés ;
-            </li>
-            <li>
-              De fourniture de Produits susceptibles de se détériorer ou de se
-              périmer rapidement ;
-            </li>
-            <li>
-              De fourniture de Produits qui ont été descellés par le Client
-              après la livraison et qui ne peuvent être renvoyés pour des
-              raisons d’hygiène ou de protection de la santé ;
-            </li>
-            <li>
-              De fourniture de Produits qui, après avoir été livrés et de par
-              leur nature, sont mélangés de manière indissociable avec d’autres
-              articles ;
-            </li>
-            <li>
-              De fourniture d’enregistrements audio ou vidéo ou de logiciels
-              informatiques lorsqu’ils ont été descellés par le Client après la
-              livraison ;
-            </li>
-            <li>
-              De fourniture d’un journal, d’un périodique ou d’un magazine, sauf
-              pour les contrats d’abonnement à ces publications ;
-            </li>
-            <li>
-              De prestations de services d’hébergement, autres que d’hébergement
-              résidentiel, de services de transport de Produits, de locations de
-              voitures, de restauration ou d’activités de loisirs qui doivent
-              être fournis à une date ou à une période déterminée ;
-            </li>
-            <li>
-              De fourniture d’un Produit Numérique non fourni sur un support
-              matériel dont l’exécution a commencé après accord préalable exprès
-              du Client et renoncement exprès à son droit de rétractation.
-            </li>
-          </ul>
         </p>
+        <ul className="list-disc pl-5">
+          <li>
+            De fourniture de services pleinement exécutés avant la fin du délai
+            de rétractation et dont l’exécution a commencé après accord
+            préalable exprès du Client et renoncement exprès à son droit de
+            rétractation ;
+          </li>
+          <li>
+            De fourniture de Produits confectionnés selon les spécifications du
+            Client ou nettement personnalisés ;
+          </li>
+          <li>
+            De fourniture de Produits susceptibles de se détériorer ou de se
+            périmer rapidement ;
+          </li>
+          <li>
+            De fourniture de Produits qui ont été descellés par le Client après
+            la livraison et qui ne peuvent être renvoyés pour des raisons
+            d’hygiène ou de protection de la santé ;
+          </li>
+          <li>
+            De fourniture de Produits qui, après avoir été livrés et de par leur
+            nature, sont mélangés de manière indissociable avec d’autres
+            articles ;
+          </li>
+          <li>
+            De fourniture d’enregistrements audio ou vidéo ou de logiciels
+            informatiques lorsqu’ils ont été descellés par le Client après la
+            livraison ;
+          </li>
+          <li>
+            De fourniture d’un journal, d’un périodique ou d’un magazine, sauf
+            pour les contrats d’abonnement à ces publications ;
+          </li>
+          <li>
+            De prestations de services d’hébergement, autres que d’hébergement
+            résidentiel, de services de transport de Produits, de locations de
+            voitures, de restauration ou d’activités de loisirs qui doivent être
+            fournis à une date ou à une période déterminée ;
+          </li>
+          <li>
+            De fourniture d’un Produit Numérique non fourni sur un support
+            matériel dont l’exécution a commencé après accord préalable exprès
+            du Client et renoncement exprès à son droit de rétractation.
+          </li>
+        </ul>
         <p>
           Ainsi sont notamment exclus du bénéfice du droit de rétractation les
           achats de Produits numériques et Services numériques (en ce compris
@@ -880,85 +876,82 @@ export default function Terms() {
         <p>
           Conformément à l’article L.217-4 du Code de la consommation, le
           Produit est conforme au contrat s’il répond aux critères suivants :
-          <ul className="list-disc pl-5">
-            <li>
-              Il correspond à la description, au type, à la quantité et à la
-              qualité, notamment en ce qui concerne la fonctionnalité, la
-              compatibilité, l’interopérabilité, ou toute autre caractéristique
-              prévue lors de la Commande ;
-            </li>
-            <li>
-              Il est propre à tout usage spécial recherché par le Client, porté
-              à la connaissance du Vendeur au plus tard au moment de la
-              Commande et que ce dernier a accepté ;
-            </li>
-            <li>
-              Il est délivré avec tous les accessoires et les instructions
-              d’installation, prévus lors de la Commande ;
-            </li>
-          </ul>
         </p>
+        <ul className="list-disc pl-5">
+          <li>
+            Il correspond à la description, au type, à la quantité et à la
+            qualité, notamment en ce qui concerne la fonctionnalité, la
+            compatibilité, l’interopérabilité, ou toute autre caractéristique
+            prévue lors de la Commande ;
+          </li>
+          <li>
+            Il est propre à tout usage spécial recherché par le Client, porté à
+            la connaissance du Vendeur au plus tard au moment de la Commande et
+            que ce dernier a accepté ;
+          </li>
+          <li>
+            Il est délivré avec tous les accessoires et les instructions
+            d’installation, prévus lors de la Commande ;
+          </li>
+        </ul>
         <p>
           Il est mis à jour conformément à la Commande. ’’Conformément à
           l’article L.217-5 du Code de la consommation, le Produit est également
           conforme s'il répond aux critères suivants :
-          <ul className="list-disc pl-5">
-            <li>
-              Il est propre à l'usage habituellement attendu d'un Produit de
-              même type, compte tenu, s'il y a lieu, de toute disposition du
-              droit de l'Union européenne et du droit national ainsi que de
-              toutes les normes techniques ou, en l'absence de telles normes
-              techniques, des codes de conduite spécifiques applicables au
-              secteur concerné ;
-            </li>
-            <li>
-              Le cas échéant, il possède les qualités que le Vendeur a
-              présentées au Client sous forme d'échantillon ou de modèle, avant
-              la Commande ;
-            </li>
-            <li>
-              Le cas échéant, les éléments numériques qu'il comporte sont
-              fournis selon la version la plus récente qui est disponible au
-              moment de la Commande, sauf si les Parties en conviennent
-              autrement ;
-            </li>
-            <li>
-              Le cas échéant, il est délivré avec tous les accessoires, y
-              compris l'emballage, et les instructions d'installation que le
-              Client peut légitimement attendre ;
-            </li>
-            <li>
-              Le cas échéant, il est fourni avec les mises à jour que le Client
-              peut légitimement attendre, conformément aux dispositions de
-              l'article L. 217-19 du Code de la consommation ;
-            </li>
-            <li>
-              Il correspond à la quantité, à la qualité et aux autres
-              caractéristiques, y compris en termes de durabilité, de
-              fonctionnalité, de compatibilité et de sécurité, que le Client
-              peut légitimement attendre pour des Produits de même type, eu
-              égard à la nature du bien ainsi qu'aux déclarations publiques
-              faites par le Vendeur, par toute personne en amont dans la chaîne
-              de transactions, ou par une personne agissant pour leur compte, y
-              compris dans la publicité ou sur l'étiquetage. Toutefois, le
-              Vendeur n'est pas tenu par toutes déclarations publiques
-              mentionnées à l'alinéa qui précède s'il démontre :
-            </li>
-            <li>
-              qu'il ne les connaissait pas et n'était légitimement pas en mesure
-              de les connaître ;
-            </li>
-            <li>
-              qu'au moment de la Commande, les déclarations publiques avaient
-              été rectifiées dans des conditions comparables aux déclarations
-              initiales ;
-            </li>
-            <li>
-              ou que les déclarations publiques n'ont pas pu avoir d'influence
-              sur la décision de passer Commande.
-            </li>
-          </ul>
         </p>
+        <ul className="list-disc pl-5">
+          <li>
+            Il est propre à l'usage habituellement attendu d'un Produit de même
+            type, compte tenu, s'il y a lieu, de toute disposition du droit de
+            l'Union européenne et du droit national ainsi que de toutes les
+            normes techniques ou, en l'absence de telles normes techniques, des
+            codes de conduite spécifiques applicables au secteur concerné ;
+          </li>
+          <li>
+            Le cas échéant, il possède les qualités que le Vendeur a présentées
+            au Client sous forme d'échantillon ou de modèle, avant la Commande ;
+          </li>
+          <li>
+            Le cas échéant, les éléments numériques qu'il comporte sont fournis
+            selon la version la plus récente qui est disponible au moment de la
+            Commande, sauf si les Parties en conviennent autrement ;
+          </li>
+          <li>
+            Le cas échéant, il est délivré avec tous les accessoires, y compris
+            l'emballage, et les instructions d'installation que le Client peut
+            légitimement attendre ;
+          </li>
+          <li>
+            Le cas échéant, il est fourni avec les mises à jour que le Client
+            peut légitimement attendre, conformément aux dispositions de
+            l'article L. 217-19 du Code de la consommation ;
+          </li>
+          <li>
+            Il correspond à la quantité, à la qualité et aux autres
+            caractéristiques, y compris en termes de durabilité, de
+            fonctionnalité, de compatibilité et de sécurité, que le Client peut
+            légitimement attendre pour des Produits de même type, eu égard à la
+            nature du bien ainsi qu'aux déclarations publiques faites par le
+            Vendeur, par toute personne en amont dans la chaîne de transactions,
+            ou par une personne agissant pour leur compte, y compris dans la
+            publicité ou sur l'étiquetage. Toutefois, le Vendeur n'est pas tenu
+            par toutes déclarations publiques mentionnées à l'alinéa qui précède
+            s'il démontre :
+          </li>
+          <li>
+            qu'il ne les connaissait pas et n'était légitimement pas en mesure
+            de les connaître ;
+          </li>
+          <li>
+            qu'au moment de la Commande, les déclarations publiques avaient été
+            rectifiées dans des conditions comparables aux déclarations
+            initiales ;
+          </li>
+          <li>
+            ou que les déclarations publiques n'ont pas pu avoir d'influence sur
+            la décision de passer Commande.
+          </li>
+        </ul>
         <p>
           Le Client ne peut contester la conformité en invoquant un défaut
           concernant une ou plusieurs caractéristiques particulières du Produit,
@@ -1008,25 +1001,25 @@ export default function Terms() {
           Le Client peut obtenir une réduction du prix d’achat en conservant le
           Produit ou mettre fin au contrat en se faisant rembourser
           intégralement contre restitution du Produit, si :
-          <ol className="list-decimal pl-5">
-            <li>Le Vendeur refuse de réparer ou de remplacer le Produit ;</li>
-            <li>
-              La réparation ou le remplacement du Produit intervient après un
-              délai de trente jours ;
-            </li>
-            <li>
-              La réparation ou le remplacement du Produit occasionne un
-              inconvénient majeur pour le Client , notamment lorsque le Client
-              supporte définitivement les frais de reprise ou d’enlèvement du
-              Produit non conforme, ou s’il supporte les frais d’installation du
-              Produit réparé ou de remplacement ;
-            </li>
-            <li>
-              La non-conformité du Produit persiste en dépit de la tentative de
-              mise en conformité du vendeur restée infructueuse.
-            </li>
-          </ol>
         </p>
+        <ol className="list-decimal pl-5">
+          <li>Le Vendeur refuse de réparer ou de remplacer le Produit ;</li>
+          <li>
+            La réparation ou le remplacement du Produit intervient après un
+            délai de trente jours ;
+          </li>
+          <li>
+            La réparation ou le remplacement du Produit occasionne un
+            inconvénient majeur pour le Client , notamment lorsque le Client
+            supporte définitivement les frais de reprise ou d’enlèvement du
+            Produit non conforme, ou s’il supporte les frais d’installation du
+            Produit réparé ou de remplacement ;
+          </li>
+          <li>
+            La non-conformité du Produit persiste en dépit de la tentative de
+            mise en conformité du vendeur restée infructueuse.
+          </li>
+        </ol>
         <p>
           Le Client a également droit à une réduction du prix du Produit ou à la
           résolution du contrat lorsque le défaut de conformité est si grave
@@ -1123,20 +1116,20 @@ export default function Terms() {
           <p>
             Les équipes de votre Service Clients sont basées à Verquigneul. Nous
             vous invitons à nous adresser vos questions :
-            <ul className="list-disc pl-5">
-              <li>
-                Par notre formulaire https://www.smiley-by-risus.fr/contact.html
-              </li>
-              <li>
-                Par téléphone au 09.87.86.02.90 : N° Cristal (appel non
-                surtaxé). Du lundi au samedi, de 8h à 19h.
-              </li>
-              <li>
-                Par courrier à : smiley-by-risus.fr - Service Clients - rue de
-                l’université - Verquigneul, France.
-              </li>
-            </ul>
           </p>
+          <ul className="list-disc pl-5">
+            <li>
+              Par notre formulaire https://www.smiley-by-risus.fr/contact.html
+            </li>
+            <li>
+              Par téléphone au 09.87.86.02.90 : N° Cristal (appel non surtaxé).
+              Du lundi au samedi, de 8h à 19h.
+            </li>
+            <li>
+              Par courrier à : smiley-by-risus.fr - Service Clients - rue de
+              l’université - Verquigneul, France.
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -1330,20 +1323,20 @@ export default function Terms() {
           <p>
             Pour toute difficulté, le Client est invité à contacter
             préalablement le Vendeur ou à contacter le Service Clients joignable
-            <ul className="list-disc pl-5">
-              <li>
-                Par notre formulaire https://www.smiley-by-risus.fr/contact.html
-              </li>
-              <li>
-                Par téléphone au 09.87.86.02.90 : N° Cristal (appel non
-                surtaxé). Du lundi au samedi, de 8h à 19h.
-              </li>
-              <li>
-                Par courrier à : smiley-by-risus.fr - Service Clients - rue de
-                l’université - Verquigneul, France.
-              </li>
-            </ul>
           </p>
+          <ul className="list-disc pl-5">
+            <li>
+              Par notre formulaire https://www.smiley-by-risus.fr/contact.html
+            </li>
+            <li>
+              Par téléphone au 09.87.86.02.90 : N° Cristal (appel non surtaxé).
+              Du lundi au samedi, de 8h à 19h.
+            </li>
+            <li>
+              Par courrier à : smiley-by-risus.fr - Service Clients - rue de
+              l’université - Verquigneul, France.
+            </li>
+          </ul>
         </div>
         <p>
           En cas de litige avec le Vendeur et/ou en l’absence de règlement du

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import FormPage from "../components/FormPage";
 import FormCard from "../components/FormCard";
 import {IoIosLogIn} from "react-icons/io";
@@ -8,8 +8,12 @@ import Button from "../components/Button";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {UserContext} from "../context/UserContext";
+import toast from "react-hot-toast";
 
 export default function Login() {
+  const {login} = useContext(UserContext);
+
   const schema = yup.object({
     email: yup.string().email("Veuillez indiquer une adresse email valide."),
     password: yup.string().required("Veuillez indiquer votre mot de passe."),
@@ -28,10 +32,13 @@ export default function Login() {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
-  const submit = (values) => {
-    console.log(values);
-
-    reset(defaultValues);
+  const submit = async (values) => {
+    if (await login(values)) {
+      reset(defaultValues);
+      toast.success("Bienvenue");
+    } else {
+      toast.error("Identifiants invalides !");
+    }
   };
   return (
     <FormPage

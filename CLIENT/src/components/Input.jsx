@@ -32,12 +32,24 @@ export default function Input({
         </div>
       )}
       {isTextArea ? (
-        <textarea
-          id={`${type}_${RANDOM}`}
-          className="min-h-[70px]"
-          placeholder={placeholder}
-          rows={rows}
-        ></textarea>
+        yup ? (
+          <textarea
+            {...yup}
+            id={`${type}_${RANDOM}`}
+            className="min-h-[70px]"
+            placeholder={placeholder}
+            rows={rows}
+          ></textarea>
+        ) : (
+          <textarea
+            id={`${type}_${RANDOM}`}
+            className="min-h-[70px]"
+            placeholder={placeholder}
+            rows={rows}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          ></textarea>
+        )
       ) : (
         <div className="relative">
           {yup ? (

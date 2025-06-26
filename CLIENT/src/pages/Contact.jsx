@@ -50,7 +50,7 @@ export default function Contact() {
             />
             <label htmlFor="contact_rgpd" className="pt-1">
               En continuant, vous validez avoir lu et accepté les 
-              <Link className="underline text-primary">
+              <Link className="underline text-primary" to={"/privacy"}>
                 politiques de confidentialité
               </Link>
               .

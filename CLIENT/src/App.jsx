@@ -2,6 +2,7 @@ import {Outlet, ScrollRestoration} from "react-router-dom";
 import Header from "./components/Header";
 import UserProvider from "./Providers/UserProvider";
 import Footer from "./components/Footer";
+import {Toaster} from "react-hot-toast";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <ScrollRestoration />
         </UserProvider>
       </main>
+      <Toaster position="bottom-right" />
     </>
   );
 }

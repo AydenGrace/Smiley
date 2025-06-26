@@ -115,7 +115,8 @@ export default function Header() {
               <NavLink to={"/profile"} className={"mb-4 w-full"}>
                 <Button
                   text="Profil"
-                  icon={<HiOutlineChartPie size={"24px"} isWidthFull />}
+                  icon={<HiOutlineChartPie size={"24px"} />}
+                  isWidthFull
                 />
               </NavLink>
             )}

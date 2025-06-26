@@ -10,49 +10,49 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import {shopLoader} from "./loaders/shopLoader";
 import Login from "./pages/Login";
+import UserNotConnected from "./secure/UserNotConnected";
 
 export const router = createBrowserRouter([
   {
+    element: <App />,
+    loader: rootLoader,
     children: [
       {
         path: "/",
-        element: <App />,
-        loader: rootLoader,
-        children: [
-          {
-            path: "/",
-            element: <Homepage />,
-          },
-          {
-            path: "/privacy",
-            element: <Privacy />,
-          },
-          {
-            path: "/legals",
-            element: <Legals />,
-          },
-          {
-            path: "/terms",
-            element: <Terms />,
-          },
-          {
-            path: "/about",
-            element: <About />,
-          },
-          {
-            path: "/contact",
-            element: <Contact />,
-          },
-          {
-            path: "/shop",
-            loader: shopLoader,
-            element: <Shop />,
-          },
-          {
-            path: "/login",
-            element: <Login />,
-          },
-        ],
+        element: <Homepage />,
+      },
+      {
+        path: "/privacy",
+        element: <Privacy />,
+      },
+      {
+        path: "/legals",
+        element: <Legals />,
+      },
+      {
+        path: "/terms",
+        element: <Terms />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/shop",
+        loader: shopLoader,
+        element: <Shop />,
+      },
+      {
+        path: "/login",
+        element: (
+          <UserNotConnected>
+            <Login />
+          </UserNotConnected>
+        ),
       },
     ],
   },
