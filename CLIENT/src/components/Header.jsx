@@ -93,27 +93,29 @@ export default function Header() {
             <NavLink
               to={"/cart"}
               onClick={() => setOpened(Math.random())}
-              className={"mb-4"}
+              className={"mb-4 w-full"}
             >
               <Button
                 text="Panier"
                 icon={<AiOutlineShopping size={"24px"} />}
+                isWidthFull
               />
             </NavLink>
             {user?.role?.name?.toUpperCase() === "ADMIN" && (
-              <NavLink to={"/admin"} className={"mb-4"}>
+              <NavLink to={"/admin"} className={"mb-4 w-full"}>
                 <Button
                   text="Administrateur"
                   icon={<HiOutlineChartPie size={"24px"} />}
+                  isWidthFull
                 />
               </NavLink>
             )}
 
             {user && (
-              <NavLink to={"/profile"} className={"mb-4"}>
+              <NavLink to={"/profile"} className={"mb-4 w-full"}>
                 <Button
                   text="Profil"
-                  icon={<HiOutlineChartPie size={"24px"} />}
+                  icon={<HiOutlineChartPie size={"24px"} isWidthFull />}
                 />
               </NavLink>
             )}
@@ -121,7 +123,7 @@ export default function Header() {
               <>
                 <div className="flex-1 flex w-full"></div>
                 <NavLink to={"/login"} className={"w-full flex justify-center"}>
-                  <Button text="Connexion" isFull />
+                  <Button text="Connexion" isFull isWidthFull />
                 </NavLink>
               </>
             )}

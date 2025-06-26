@@ -1,11 +1,43 @@
 import React from "react";
 import ShopCard from "../components/ShopCard";
+import {useLoaderData} from "react-router-dom";
+import TitleTwo from "../components/TitleTwo";
 
 export default function Shop() {
+  const articles = useLoaderData();
+  const featured = articles?.filter((art) => art.is_featured === true);
+
   return (
     <div className="flex flex-col p-4 w-full min-h-screen">
       <div className="w-full h-[70px]"></div>
-      <ShopCard />
+      <h1 className="hidden">Boutique en ligne</h1>
+      {featured.length && (
+        <section className="w-full flex flex-col gap-2.5">
+          <TitleTwo>
+            Articles en{" "}
+            <span className="text-primary font-semibold">Vedette</span>
+          </TitleTwo>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            {featured.map((article, idx) => (
+              <ShopCard product={article} key={`Featured_${idx}`} />
+            ))}
+          </div>
+        </section>
+      )}
+      <section className="w-full flex flex-col gap-2.5">
+        <TitleTwo>
+          Nos{" "}
+          <span className="text-primary font-semibold">Produits Uniques</span>
+        </TitleTwo>
+        <p className="opacity-75">
+          Voir <strong>{articles.length}</strong> articles
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          {articles.map((article, idx) => (
+            <ShopCard product={article} key={`Article_${idx}`} staticSize />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

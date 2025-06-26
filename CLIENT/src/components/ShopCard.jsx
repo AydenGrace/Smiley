@@ -33,6 +33,7 @@ export default function ShopCard({
       },
     ],
   },
+  staticSize = false,
 }) {
   const imgURL = product.medias.find((item) => item.is_main === true).url;
 
@@ -44,7 +45,7 @@ export default function ShopCard({
   return (
     <article
       className={`relative flex flex-col rounded-[10px] aspect-[56/75] overflow-hidden ${
-        product.is_featured
+        product.is_featured && !staticSize
           ? "w-[335px] md:w-[440px] md:max-w-1/3"
           : "w-[335px]"
       }`}

@@ -8,6 +8,7 @@ import Terms from "./pages/Terms";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
+import {shopLoader} from "./loaders/shopLoader";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/shop",
+            loader: shopLoader,
             element: <Shop />,
           },
         ],

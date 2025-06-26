@@ -1,11 +1,10 @@
-import React from "react";
-
 export default function Button({
   icon = null,
   isFull = false,
   isEmpty = false,
   isRounded = false,
   colored = false,
+  isWidthFull = false,
   onClick = () => {},
   text = "Button",
   customClasses = "",
@@ -16,7 +15,7 @@ export default function Button({
       className={
         customClasses
           ? customClasses
-          : `flex items-center justify-center ${
+          : `flex items-center ${isWidthFull && "w-full"} justify-center ${
               isRounded
                 ? "w-10 h-10 rounded-[100px]"
                 : "rounded-md py-2 px-5 gap-2 flex "
