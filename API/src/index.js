@@ -11,6 +11,7 @@ import authAPI from "./routes/auth.route.js";
 import userAPI from "./routes/user.route.js";
 import mediaAPI from "./routes/media.route.js";
 import articleAPI from "./routes/article.route.js";
+import orderAPI from "./routes/order.route.js";
 
 import {init} from "./init.js";
 
@@ -39,6 +40,7 @@ app.use("/auth", authAPI);
 app.use("/user", userAPI);
 app.use("/media", mediaAPI);
 app.use("/article", articleAPI);
+app.use("/order", orderAPI);
 
 app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(__DIRNAME, "CLIENT", "dist", "index.html"));

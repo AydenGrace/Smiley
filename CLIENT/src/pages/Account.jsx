@@ -31,13 +31,13 @@ export default function Account() {
             <IoBagOutline size={24} />
             Commandes
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to={"/profile/favorites"}
             className={"p-4 flex gap-1  items-center"}
           >
             <IoHeartOutline size={24} />
             Favoris
-          </NavLink>
+          </NavLink> */}
           <NavLink
             to={"/profile/settings"}
             className={"p-4 flex gap-1  items-center"}

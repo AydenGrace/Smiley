@@ -9,6 +9,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import {shopLoader} from "./loaders/shopLoader";
+import {orderLoader} from "./loaders/accountLoader";
+
 import Login from "./pages/Login";
 import UserNotConnected from "./secure/UserNotConnected";
 import UserConnected from "./secure/UserConnected";
@@ -69,6 +71,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: 1,
+            loader: orderLoader,
             element: <AccountOrders />,
           },
           {
