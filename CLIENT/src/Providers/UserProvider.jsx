@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {UserContext} from "../context/UserContext";
 import {useLoaderData} from "react-router-dom";
-import {signin} from "../apis/auth.api";
+import {signin, signOut} from "../apis/auth.api";
 import toast from "react-hot-toast";
 
 export default function UserProvider({children}) {
@@ -23,6 +23,9 @@ export default function UserProvider({children}) {
   const logout = async () => {
     await signOut();
     setUser(null);
+    toast("Au-revoir !", {
+      icon: "👏",
+    });
   };
 
   return (

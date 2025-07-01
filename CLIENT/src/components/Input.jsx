@@ -12,14 +12,20 @@ export default function Input({
   getValueOnChange = () => {},
   yup = null,
   yupError = null,
+  disabled = false,
+  defautlValue = "",
 }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defautlValue);
   const [localType, setlocalType] = useState(type);
   const RANDOM = Math.floor(Math.random() * 10000);
 
   useEffect(() => {
     getValueOnChange(value);
   }, [value]);
+
+  useEffect(() => {
+    setValue(defautlValue);
+  }, [defautlValue]);
 
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -39,6 +45,7 @@ export default function Input({
             className="min-h-[70px]"
             placeholder={placeholder}
             rows={rows}
+            disabled={disabled}
           ></textarea>
         ) : (
           <textarea
@@ -48,6 +55,7 @@ export default function Input({
             rows={rows}
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            disabled={disabled}
           ></textarea>
         )
       ) : (
@@ -59,6 +67,7 @@ export default function Input({
               type={localType}
               className={`w-full`}
               placeholder={placeholder}
+              disabled={disabled}
             />
           ) : (
             <input
@@ -68,6 +77,7 @@ export default function Input({
               className={`w-full`}
               placeholder={placeholder}
               onChange={(e) => setValue(e.target.value)}
+              disabled={disabled}
             />
           )}
 

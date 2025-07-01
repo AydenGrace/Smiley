@@ -128,6 +128,7 @@ export const signIn = async (req, res) => {
       _id: user._id,
       email: user.email,
       fullname: user.fullname,
+      isEmailMod: user.token_modify ? true : false,
       role: user.role,
     });
   } catch (error) {
@@ -169,6 +170,14 @@ export const current = async (req, res) => {
     const user = await User.findById(decoded.content)
       .select("-password")
       .populate("role", "name");
+
+    const dto = {
+      _id: user._id,
+      email: user.email,
+      fullname: user.fullname,
+      isEmailMod: user.token_modify ? true : false,
+      role: user.role,
+    };
     if (!user) return res.status(200).json(null);
     return res.status(200).json(user);
   } catch (error) {

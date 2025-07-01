@@ -11,6 +11,12 @@ import Shop from "./pages/Shop";
 import {shopLoader} from "./loaders/shopLoader";
 import Login from "./pages/Login";
 import UserNotConnected from "./secure/UserNotConnected";
+import UserConnected from "./secure/UserConnected";
+// import Account from "./pages/Account";
+// import AccountOrders from "./pages/AccountOrders";
+// import AccountFavorites from "./pages/AccountFavorites";
+// import AccountSettings from "./pages/AccountSettings";
+import Logout from "./pages/Logout";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +26,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Homepage />,
+      },
+      {
+        path: "/logout",
+        element: (
+          <UserConnected>
+            <Logout />
+          </UserConnected>
+        ),
       },
       {
         path: "/privacy",
