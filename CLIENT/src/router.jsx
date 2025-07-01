@@ -18,6 +18,7 @@ import Account from "./pages/Account";
 import AccountOrders from "./pages/AccountOrders";
 import AccountFavorites from "./pages/AccountFavorites";
 import AccountSettings from "./pages/AccountSettings";
+import Logout from "./pages/Logout";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Homepage />,
+      },
+      {
+        path: "/logout",
+        element: (
+          <UserConnected>
+            <Logout />
+          </UserConnected>
+        ),
       },
       {
         path: "/privacy",
