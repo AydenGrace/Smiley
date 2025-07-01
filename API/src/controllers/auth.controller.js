@@ -130,6 +130,7 @@ export const signIn = async (req, res) => {
       fullname: user.fullname,
       isEmailMod: user.token_modify ? true : false,
       role: user.role,
+      createdAt: user.createdAt,
     });
   } catch (error) {
     console.log(
@@ -177,9 +178,10 @@ export const current = async (req, res) => {
       fullname: user.fullname,
       isEmailMod: user.token_modify ? true : false,
       role: user.role,
+      createdAt: user.createdAt,
     };
     if (!user) return res.status(200).json(null);
-    return res.status(200).json(user);
+    return res.status(200).json(dto);
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.current()${RED} function : ${RESET}`,

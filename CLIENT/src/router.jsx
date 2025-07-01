@@ -19,6 +19,7 @@ import AccountOrders from "./pages/AccountOrders";
 import AccountFavorites from "./pages/AccountFavorites";
 import AccountSettings from "./pages/AccountSettings";
 import Logout from "./pages/Logout";
+import ChangeEmail from "./pages/ChangeEmail";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/privacy",
         element: <Privacy />,
+      },
+      {
+        path: "/change-email/:token",
+        element: <ChangeEmail />,
       },
       {
         path: "/legals",

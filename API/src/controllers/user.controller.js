@@ -91,6 +91,8 @@ export const updateAccount = async (req, res) => {
 
 export const changeEmail = async (req, res) => {
   try {
+    console.log("CHANGE EMAIL");
+
     const {id} = req.params;
     const {email} = req.body;
 
@@ -107,14 +109,26 @@ export const changeEmail = async (req, res) => {
 
     if (user.email === email)
       return res.status(400).json({message: "Email not modified."});
+
+    if (await User.findOne({email}))
+      return res.status(400).json({message: "Email already used."});
+
     const token = tokenCreation(email, "1h");
 
     await User.findByIdAndUpdate(id, {token_modify: token});
-
+    const dto = {
+      _id: user._id,
+      email: user.email,
+      fullname: user.fullname,
+      isEmailMod: true,
+      role: user.role,
+      createdAt: user.createdAt,
+    };
     await sendChangeEmail(email, token);
-    return res
-      .status(200)
-      .json({message: "Confirmation email sent. Please check your emails."});
+    return res.status(200).json({
+      message: "Confirmation email sent. Please check your emails.",
+      user: dto,
+    });
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.changeEmail()${RED} function : ${RESET}`,
@@ -126,6 +140,8 @@ export const changeEmail = async (req, res) => {
 
 export const confirmChangeEmail = async (req, res) => {
   try {
+    console.log("CONFIRM CHANGE EMAIL");
+
     const {token} = req.params;
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
@@ -135,9 +151,16 @@ export const confirmChangeEmail = async (req, res) => {
 
     user.email = decoded.content;
     user.token_modify = null;
-    user.save();
-
-    res.status(200).json({message: "Email succesfully changed."});
+    await user.save();
+    const dto = {
+      _id: user._id,
+      email: user.email,
+      fullname: user.fullname,
+      isEmailMod: false,
+      role: user.role,
+      createdAt: user.createdAt,
+    };
+    res.status(200).json({message: "Email succesfully changed.", user: dto});
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}User.confirmChangeEmail()${RED} function : ${RESET}`,
