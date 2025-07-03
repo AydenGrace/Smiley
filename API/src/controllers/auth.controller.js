@@ -35,7 +35,10 @@ export const signUp = async (req, res) => {
     await sendConfirmationEmail(newUser.email, newUser.token);
     res
       .status(200)
-      .json({message: "Confirmation send. Please check your emails."});
+      .json({
+        message: "Confirmation send. Please check your emails.",
+        token: newUser.token,
+      });
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.signUp()${RED} function : ${RESET}`,

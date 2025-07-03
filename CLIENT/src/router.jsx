@@ -20,6 +20,8 @@ import AccountFavorites from "./pages/AccountFavorites";
 import AccountSettings from "./pages/AccountSettings";
 import Logout from "./pages/Logout";
 import ChangeEmail from "./pages/ChangeEmail";
+import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +74,22 @@ export const router = createBrowserRouter([
         element: (
           <UserNotConnected>
             <Login />
+          </UserNotConnected>
+        ),
+      },
+      {
+        path: "/register",
+        element: (
+          <UserNotConnected>
+            <Register />
+          </UserNotConnected>
+        ),
+      },
+      {
+        path: "/verify-email/:token",
+        element: (
+          <UserNotConnected>
+            <VerifyEmail />
           </UserNotConnected>
         ),
       },

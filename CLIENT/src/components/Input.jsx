@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Tooltip from "./Tooltip";
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa6";
 
@@ -42,7 +42,7 @@ export default function Input({
           <textarea
             {...yup}
             id={`${type}_${RANDOM}`}
-            className="min-h-[70px]"
+            className={`min-h-[70px]  ${disabled ? "opacity-50" : ""}`}
             placeholder={placeholder}
             rows={rows}
             disabled={disabled}
@@ -50,7 +50,7 @@ export default function Input({
         ) : (
           <textarea
             id={`${type}_${RANDOM}`}
-            className="min-h-[70px]"
+            className={`min-h-[70px]  ${disabled ? "opacity-50" : ""}`}
             placeholder={placeholder}
             rows={rows}
             value={value}
@@ -65,16 +65,17 @@ export default function Input({
               {...yup}
               id={`${type}_${RANDOM}`}
               type={localType}
-              className={`w-full`}
+              className={`w-full  ${disabled ? "opacity-50" : ""}`}
               placeholder={placeholder}
               disabled={disabled}
+              onChange={(e) => setValue(e.target.value)}
             />
           ) : (
             <input
               id={`${type}_${RANDOM}`}
               type={localType}
               value={value}
-              className={`w-full`}
+              className={`w-full ${disabled ? "opacity-50" : ""}`}
               placeholder={placeholder}
               onChange={(e) => setValue(e.target.value)}
               disabled={disabled}

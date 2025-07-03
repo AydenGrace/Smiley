@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import Order from "../models/order.model.js";
 import UserArchive from "../models/user-archive.model.js";
 import {tokenCreation, validateEmail, validatePassword} from "../lib/utils.js";
-import {sendChangeEmail} from "../emails/email.js";
+import {sendChangeEmail, sendDeleteAccountEmail} from "../emails/email.js";
 import bcrypt from "bcryptjs";
 import {BLUE, RED, RESET} from "../lib/terminalColors.js";
 import jwt from "jsonwebtoken";
@@ -26,6 +26,7 @@ export const deleteAccount = async (req, res) => {
     const userOrders = await Order.findOne({client: userToDelete._id});
     if (!userOrders) {
       await User.findByIdAndDelete(userToDelete._id);
+      sendDeleteAccountEmail(userToDelete.email);
       return res.status(200).json({message: "User deleted.", user: {}});
     }
 
@@ -45,6 +46,7 @@ export const deleteAccount = async (req, res) => {
       },
       {new: true}
     );
+    sendDeleteAccountEmail(userToDelete.email);
     return res
       .status(200)
       .json({message: "User archived.", user: newUserDatas});

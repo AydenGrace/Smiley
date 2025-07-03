@@ -41,8 +41,6 @@ export default function Tooltip({
     const nbMin = tmp.match(REGEX_MINUSCULE);
     const nbNum = tmp.match(REGEX_NUMBER);
 
-    console.log(nbMin);
-
     //Verify number of characters
     setNbChar(tmp.length >= MIN_CHAR);
     setSpecial(nbSpe ? nbSpe.length >= MIN_SPECIAL : false);

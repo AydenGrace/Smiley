@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { emailConfirmation } from "./templates/email-confirmation.template.js";
+import {emailConfirmation} from "./templates/email-confirmation.template.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -33,7 +33,7 @@ export const sendConfirmationEmail = async (email, token) => {
     to: email,
     subject: "Confirmation d'inscription",
     html: emailConfirmation(
-      `${process.env.FRONT}/verifyEmail/${token}`,
+      `${process.env.FRONT}/verify-email/${token}`,
       `${process.env.FRONT}/unsubscribe`,
       `${process.env.FRONT}/privacy-policy`
     ),
@@ -81,6 +81,17 @@ export const sendChangeEmail = async (email, token) => {
     to: email,
     subject: "Demande de changement d'adresse email'.",
     html: `<p>Votre demande de changement d'adresse a bien été reçue. Si cette demande n'est pas de votre initiative, merci d'ignorer le lien suivant : <a href="${process.env.FRONT}/change-email/${token}">Modifier mon adresse email</a>.</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+export const sendDeleteAccountEmail = async (email) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Notification de suppression de compte.",
+    html: `<p>Nous vous notifions que la suppression de votre compte s'est déroulé avec succès. Nous vous souhaitons une bonne continuation !</p>`,
   };
 
   await transporter.sendMail(mailOptions);

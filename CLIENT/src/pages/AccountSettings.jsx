@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import {UserContext} from "../context/UserContext";
 import {deleteMyAccount} from "../apis/user.api";
 import toast from "react-hot-toast";
+import ChangePasswordForm from "../components/ChangePasswordForm";
 
 export default function AccountSettings() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,7 +44,9 @@ export default function AccountSettings() {
         <div className="flex w-full flex-col">
           <ChangeEmailForm />
         </div>
-        <div className="flex w-full flex-col"></div>
+        <div className="flex w-full flex-col">
+          <ChangePasswordForm />
+        </div>
       </section>
       <section className="w-full flex justify-between">
         <Button
