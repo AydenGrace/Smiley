@@ -19,6 +19,22 @@ export async function modifyEmail(id, email) {
   }
 }
 
+export async function deleteMyAccount(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function confirmModifyEmail(token) {
   try {
     const response = await fetch(`${BASE_URL}/confirm-email/${token}`, {

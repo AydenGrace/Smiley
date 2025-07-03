@@ -26,7 +26,7 @@ export const deleteAccount = async (req, res) => {
     const userOrders = await Order.findOne({client: userToDelete._id});
     if (!userOrders) {
       await User.findByIdAndDelete(userToDelete._id);
-      return res.status(200).json({message: "User deleted."});
+      return res.status(200).json({message: "User deleted.", user: {}});
     }
 
     //Archive user datas

@@ -10,7 +10,10 @@ export default function UserProvider({children}) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
     console.log(user);
     if (user.role._id === import.meta.env.VITE_ADMIN_UUID) {
       setIsAdmin(true);

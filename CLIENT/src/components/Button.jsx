@@ -17,7 +17,6 @@ export default function Button({
   const [hovered, setHovered] = useState(false);
 
   const onClickEvent = () => {
-    console.log("CLICK");
     onClick();
   };
   return (
