@@ -15,9 +15,14 @@ export default function Button({
 }) {
   const [color, setColor] = useState(defaultColor);
   const [hovered, setHovered] = useState(false);
+
+  const onClickEvent = () => {
+    console.log("CLICK");
+    onClick();
+  };
   return (
     <button
-      onClick={onClick}
+      onClick={onClickEvent}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={
@@ -42,24 +47,34 @@ export default function Button({
       style={{
         color: !hovered
           ? color && colored
-            ? color
+            ? isFull
+              ? "white"
+              : color
             : null
           : color && colored
-          ? "white"
+          ? isFull
+            ? color
+            : "white"
           : null,
         borderColor: !hovered
           ? color && colored
             ? color
             : null
           : color && colored
-          ? "white"
+          ? color
           : null,
         backgroundColor: hovered
           ? color && colored
+            ? isFull
+              ? null
+              : color
+            : isFull
             ? color
             : null
           : color && colored
-          ? "white"
+          ? isFull
+            ? color
+            : "white"
           : null,
       }}
     >

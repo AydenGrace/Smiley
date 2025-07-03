@@ -35,7 +35,7 @@ export const deleteAccount = async (req, res) => {
       fullname: userToDelete.fullname,
     });
     await archivedUser.save();
-    let archiveString = archivedUser._id + "@Smiley";
+    let archiveString = archivedUser._id + "@SmileyArchived";
     const newUserDatas = await User.findByIdAndUpdate(
       userToDelete._id,
       {

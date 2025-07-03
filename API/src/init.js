@@ -13,7 +13,10 @@ export const init = async () => {
         `[${YELLOW}INIT${RESET}]${RED} Error : ADMIN role not found.${RESET}`
       );
 
-    const adminAlreadyExist = await User.findOne({role: adminRole._id});
+    const adminAlreadyExist = await User.findOne({
+      role: adminRole._id,
+      email: {$not: /@SmileyArchived/i},
+    });
     if (adminAlreadyExist)
       return console.log(
         `[${YELLOW}INIT${RESET}]${BLUE} ADMIN found. Initialisation canceled.${RESET}`
