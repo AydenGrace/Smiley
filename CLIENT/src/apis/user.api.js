@@ -50,3 +50,20 @@ export async function confirmModifyEmail(token) {
     console.log(error);
   }
 }
+
+export async function changeMyPwd(id, values) {
+  try {
+    const response = await fetch(`${BASE_URL}/pwd/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

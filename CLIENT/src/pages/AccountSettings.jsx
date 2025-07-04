@@ -15,10 +15,6 @@ export default function AccountSettings() {
   const navigate = useNavigate();
   const {user} = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(modalOpen);
-  }, [modalOpen]);
-
   const deleteAccount = async () => {
     const response = await deleteMyAccount(user._id);
     if (response?.user) {
@@ -40,15 +36,15 @@ export default function AccountSettings() {
         </span>
       </TitleThree>
       {/* PARAMETERS */}
-      <section className="w-full flex gap-4">
-        <div className="flex w-full flex-col">
+      <section className="w-full flex gap-4 flex-wrap justify-between">
+        <div className="flex w-full lg:w-fit lg:max-w-1/2 flex-col">
           <ChangeEmailForm />
         </div>
-        <div className="flex w-full flex-col">
+        <div className="flex max-w-1/2 w-full flex-col">
           <ChangePasswordForm />
         </div>
       </section>
-      <section className="w-full flex justify-between">
+      <section className="w-full flex justify-between flex-wrap gap-4">
         <Button
           defaultColor="#dc2626"
           icon={<IoIosLogOut size={24} />}

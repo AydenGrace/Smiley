@@ -14,14 +14,16 @@ const transporter = nodemailer.createTransport({
 export const sendContactForm = async (content) => {
   const mailOptions = {
     priority: "high",
-    from: process.env.EMAIL_USER,
+    from: content.EMAIL_USER,
     to: process.env.ADMIN_MAIL,
     subject: "Nouveau formulaire de contact : " + content.subject,
-    html: `<p>De: ${content.name}<br/>Email : ${
+    html: `<p>De: ${content.fullname}<br/>Email : ${
       content.email
-    }<br/>Daté du : ${content.date.toLocaleString("fr-FR", {
-      timeZone: "Europe/Paris",
-    })}<br/><br/>${content.content}</p>`,
+    }<br/>Daté du : ${new Date(Date.now()).toLocaleDateString(
+      "FR-fr"
+    )} - ${new Date(Date.now()).toLocaleTimeString("FR-fr")}<br/><br/>${
+      content.message
+    }</p>`,
   };
 
   await transporter.sendMail(mailOptions);

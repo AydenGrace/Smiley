@@ -15,7 +15,7 @@ export const deleteAccount = async (req, res) => {
     if (!userToDelete)
       return res.status(404).json({message: "User not found."});
     //Verify if it's my account
-    if (userToDelete._id !== req.user._id) {
+    if (!userToDelete._id.equals(req.user._id)) {
       //verify if admin power
       if (req.user.role.name !== "ADMIN") {
         return res
@@ -93,7 +93,7 @@ export const updateAccount = async (req, res) => {
 
 export const changeEmail = async (req, res) => {
   try {
-    console.log("CHANGE EMAIL");
+    // console.log("CHANGE EMAIL");
 
     const {id} = req.params;
     const {email} = req.body;
@@ -142,7 +142,7 @@ export const changeEmail = async (req, res) => {
 
 export const confirmChangeEmail = async (req, res) => {
   try {
-    console.log("CONFIRM CHANGE EMAIL");
+    // console.log("CONFIRM CHANGE EMAIL");
 
     const {token} = req.params;
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -215,7 +215,7 @@ export const changePwdAlreadyConnected = async (req, res) => {
     // Not found
     if (!user) return res.status(404).json({message: "User not found."});
     // Bad old Pwd
-    if (await bcrypt.compare(oldPwd, user.password))
+    if (!(await bcrypt.compare(oldPwd, user.password)))
       return res.status(400).json({message: "Bad credentials."});
     // New Pwd Not validate
     if (!validatePassword(newPwd))
@@ -224,7 +224,9 @@ export const changePwdAlreadyConnected = async (req, res) => {
     // Modifications
     user.password = await bcrypt.hash(newPwd, 10);
     await user.save();
-    return res.status(200).json({message: "Password succesfully modified."});
+    return res
+      .status(200)
+      .json({message: "Password succesfully modified.", ok: true});
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}User.getInfos()${RED} function : ${RESET}`,

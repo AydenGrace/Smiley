@@ -11,7 +11,7 @@ export default function response(
     message,
   };
 
-  console.log(message);
+  // console.log(message);
 
   return res.status(status).json(message);
 }

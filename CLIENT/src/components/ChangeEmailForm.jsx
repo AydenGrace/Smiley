@@ -71,7 +71,7 @@ export default function ChangeEmailForm() {
             />
           </div>
         ) : (
-          <div className="flex mb-[3px]">
+          <div className="flex mb-[3px] mr-12">
             <Button
               isSquare
               icon={<CiEdit size={24} />}
