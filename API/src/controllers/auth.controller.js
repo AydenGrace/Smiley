@@ -33,12 +33,10 @@ export const signUp = async (req, res) => {
     const newUser = new UserTemp({email, token});
     await newUser.save();
     await sendConfirmationEmail(newUser.email, newUser.token);
-    res
-      .status(200)
-      .json({
-        message: "Confirmation send. Please check your emails.",
-        token: newUser.token,
-      });
+    res.status(200).json({
+      message: "Confirmation send. Please check your emails.",
+      token: newUser.token,
+    });
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.signUp()${RED} function : ${RESET}`,
@@ -72,7 +70,7 @@ export const signUpConfirm = async (req, res) => {
     const newUser = new User({
       email: decoded.content,
       password: await bcrypt.hash(password, 10),
-      fullname,
+      fullname: fullname ? fullname : decoded.content,
       role: defaultRole._id,
     });
     await newUser.save();

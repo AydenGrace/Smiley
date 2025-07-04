@@ -3,16 +3,17 @@ import FormPage from "../components/FormPage";
 import FormCard from "../components/FormCard";
 import {LuUserRoundPlus} from "react-icons/lu";
 import Input from "../components/Input";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Button from "../components/Button";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
-import {signup} from "../apis/auth.api";
+import {signup, signupConfirm} from "../apis/auth.api";
 import {useJwt} from "react-jwt";
 
 export default function VerifyEmail() {
+  const navigate = useNavigate();
   const {token} = useParams();
   const [email, setEmail] = useState("");
   const {decodedToken, isExpired} = useJwt(token);
@@ -25,14 +26,26 @@ export default function VerifyEmail() {
 
   const [responseMessage, setResponseMessage] = useState(null);
   const schema = yup.object({
-    password: yup.string().required("Veuillez indiquer un mot de passe."),
+    password: yup
+      .string()
+      .required("Veuillez indiquer un mot de passe.")
+      .matches(
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-])",
+        "Le mot de passe ne correspond pas aux normes minimales."
+      ),
     confirm_password: yup
       .string()
-      .required("Veuillez confirmer votre mot de passe."),
+      .required("Veuillez confirmer votre mot de passe.")
+      .oneOf(
+        [yup.ref("password"), ""],
+        "Les mots de passe ne sont pas identiques."
+      ),
+    rgpd: yup.bool().required("Veuillez accepter les confitions."),
   });
   const defaultValues = {
     password: "",
     confirm_password: "",
+    rgpd: false,
   };
   const {
     register,
@@ -45,15 +58,20 @@ export default function VerifyEmail() {
     mode: "onSubmit",
   });
   const submit = async (values) => {
-    const response = await signup(values);
-    if (response?.token) {
-      toast.success("Un email de confirmation vous a été envoyé.");
-      setResponseMessage("Un email de confirmation vous a été envoyé.");
+    console.log(values);
+
+    const toSend = {fullname: email, password: values.password};
+
+    const response = await signupConfirm(toSend, token);
+    if (response?.user) {
+      toast.success("Enregistrement validé avec succès.");
+      navigate("/login");
     } else {
       toast.error(response.message);
       setResponseMessage(response.message);
     }
   };
+
   return (
     <FormPage
       image={
@@ -94,11 +112,32 @@ export default function VerifyEmail() {
             yup={register("confirm_password")}
             yupError={errors.confirm_password}
           />
+          <div className="flex w-full flex-col">
+            <div className="w-full flex gap-2 items-center text-left">
+              <input
+                {...register("rgpd")}
+                type="checkbox"
+                id="register_rgpd"
+                required={true}
+                className="!rounded-[5px] mt-1 relative peer appearance-none min-w-4 max-w-4 maw-h-4 min-h-4 border border-primary cursor-pointer text-bg checked:bg-secondary checked:!bg-primary before:checked:content-[2714] before:checked:absolute before:checked:right-[1px] before:checked:top-[-5px] before:checked:text-primary check"
+              />
+              <label htmlFor="register_rgpd" className="pt-1 text-xs">
+                En continuant, vous validez avoir lu et accepté les 
+                <Link className="underline text-primary" to={"/privacy"}>
+                  politiques de confidentialité
+                </Link>
+                .
+              </label>
+              {errors.rgpd && (
+                <p className="text-red-500 text-xs">{errors.rgpd.message}</p>
+              )}
+            </div>
+          </div>
           <Button text="S'inscrire" isFull />
           {responseMessage && (
             <p className="text-[14px] text-center">{responseMessage}</p>
           )}
-          <p className="text-[14px] opacity-75">
+          <p className="text-xs opacity-75">
             Vous avez déjà un compte ?{" "}
             <Link to={"/login"} className="text-primary underline">
               Connectez-vous !

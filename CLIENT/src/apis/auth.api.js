@@ -39,6 +39,25 @@ export async function signup(values) {
   }
 }
 
+export async function signupConfirm(values, token) {
+  try {
+    const response = await fetch(`${BASE_URL}/signup-confirmation/${token}`, {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+    });
+    const message = await response.json();
+    console.log(message);
+
+    return message;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getCurrentUser() {
   try {
     const response = await fetch(`${BASE_URL}/current`, {

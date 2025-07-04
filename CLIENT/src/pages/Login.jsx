@@ -74,12 +74,12 @@ export default function Login() {
               yup={register("password")}
               yupError={errors.password}
             />
-            <Link to={"/forgot"} className="text-primary underline text-[14px]">
+            <Link to={"/forgot"} className="text-primary underline text-xs">
               Mot de passe oublie ?
             </Link>
           </div>
           <Button text="Se Connecter" isFull />
-          <p className="text-[14px] opacity-75">
+          <p className="text-xs opacity-75">
             Pas encore de compte ?{" "}
             <Link to={"/register"} className="text-primary underline">
               Inscrivez-vous !

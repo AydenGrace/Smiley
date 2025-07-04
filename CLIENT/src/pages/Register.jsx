@@ -72,7 +72,7 @@ export default function Register() {
           {responseMessage && (
             <p className="text-[14px] text-center">{responseMessage}</p>
           )}
-          <p className="text-[14px] opacity-75">
+          <p className="text-xs opacity-75">
             Vous avez déjà un compte ?{" "}
             <Link to={"/login"} className="text-primary underline">
               Connectez-vous !
