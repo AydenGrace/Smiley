@@ -1,0 +1,84 @@
+import React, {useContext, useState} from "react";
+import Input from "./Input";
+import {UserContext} from "../context/UserContext";
+import Button from "./Button";
+import {CiEdit} from "react-icons/ci";
+import {ImCancelCircle} from "react-icons/im";
+import {FaCheck} from "react-icons/fa6";
+import {modifyEmail, updateFullname} from "../apis/user.api";
+import {toast} from "react-hot-toast";
+
+export default function ChangeFullnameForm() {
+  const {user, setUser} = useContext(UserContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState("");
+
+  const setEdit = () => {
+    setIsEditing(true);
+    setValue(user.fullname);
+  };
+
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setValue("");
+  };
+
+  const submit = async () => {
+    console.log(value);
+    const response = await updateFullname(user._id, value);
+    console.log(response);
+    if (response?.user) {
+      toast.success("Votre nom a bien été modifié.");
+      setUser(response.user);
+      setValue("");
+      setIsEditing(false);
+    } else {
+      toast.error(response.message);
+    }
+  };
+
+  return (
+    <div className="w-full flex flex-col gap-2">
+      <div className="w-full flex gap-4 items-end">
+        <div className="w-[300px]">
+          <Input
+            label={"Nom"}
+            placeholder={user.fullname ? user.fullname : "John Doe"}
+            type="text"
+            disabled={!isEditing}
+            defautlValue={value}
+            getValueOnChange={(val) => setValue(val)}
+          />
+        </div>
+        {isEditing ? (
+          <div className="flex mb-[2px] gap-2">
+            <Button
+              text={null}
+              isSquare
+              colored
+              icon={<FaCheck size={24} />}
+              onClick={submit}
+            />
+            <Button
+              text={null}
+              isSquare
+              icon={<ImCancelCircle size={24} />}
+              defaultColor="#dc2626"
+              colored
+              onClick={cancelEdit}
+            />
+          </div>
+        ) : (
+          <div className="flex mb-[3px] mr-12">
+            <Button
+              isSquare
+              icon={<CiEdit size={24} />}
+              text={null}
+              onClick={setEdit}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

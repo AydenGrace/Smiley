@@ -99,7 +99,9 @@ export default function Homepage() {
             </SubTitle>
           </div>
           <div className="flex w-full justify-center items-center gap-4">
-            <Button isFull text="Explorer" />
+            <Link to={"/shop"}>
+              <Button isFull text="Explorer" />
+            </Link>
             <Link to={"/about"}>
               <Button
                 icon={<HiOutlineChartPie size={"24px"} />}
@@ -231,6 +233,7 @@ export default function Homepage() {
         <article className="w-full flex flex-col gap-6">
           <div className="w-full flex gap-4">
             <input
+              id="newsletter_input"
               type="text"
               className="w-full max-w-[335px]"
               placeholder="Votre adresse email"

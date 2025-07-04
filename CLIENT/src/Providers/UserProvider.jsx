@@ -14,7 +14,7 @@ export default function UserProvider({children}) {
       setIsAdmin(false);
       return;
     }
-    console.log(user);
+    // console.log(user);
     if (user.role._id === import.meta.env.VITE_ADMIN_UUID) {
       setIsAdmin(true);
     } else setIsAdmin(false);

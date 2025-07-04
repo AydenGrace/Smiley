@@ -9,6 +9,7 @@ import {UserContext} from "../context/UserContext";
 import {deleteMyAccount} from "../apis/user.api";
 import toast from "react-hot-toast";
 import ChangePasswordForm from "../components/ChangePasswordForm";
+import ChangeFullnameForm from "../components/ChangeFullnameForm";
 
 export default function AccountSettings() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,14 +31,15 @@ export default function AccountSettings() {
   return (
     <div className="min-h-[154px] w-full p-4 flex flex-col gap-4">
       <TitleThree>
-        Informations de{" "}
+        Informations{" "}
         <span className="text-primary font-medium tracking-[-0.6px]">
-          Connexion
+          Personnelles
         </span>
       </TitleThree>
       {/* PARAMETERS */}
       <section className="w-full flex gap-4 flex-wrap justify-between">
-        <div className="flex w-full lg:w-fit lg:max-w-1/2 flex-col">
+        <div className="flex w-full lg:w-fit lg:max-w-1/2 flex-col gap-2">
+          <ChangeFullnameForm />
           <ChangeEmailForm />
         </div>
         <div className="flex max-w-1/2 w-full flex-col">

@@ -67,3 +67,20 @@ export async function changeMyPwd(id, values) {
     console.log(error);
   }
 }
+
+export async function updateFullname(id, fullname) {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({fullname}),
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

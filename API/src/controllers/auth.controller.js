@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import {RED, BLUE, RESET} from "../lib/terminalColors.js";
+import {subWithoutRes, unSubWithoutRes} from "./newsletter.controller.js";
 
 export const signUp = async (req, res) => {
   try {
@@ -76,6 +77,7 @@ export const signUpConfirm = async (req, res) => {
     await newUser.save();
     await UserTemp.deleteOne({email: newUser.email});
     await sendValidationAccount(tempUser.email);
+    await subWithoutRes(newUser.email);
     res.status(201).json({
       message: "Registration confirmed.",
       user: {

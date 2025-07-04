@@ -6,6 +6,7 @@ import {sendChangeEmail, sendDeleteAccountEmail} from "../emails/email.js";
 import bcrypt from "bcryptjs";
 import {BLUE, RED, RESET} from "../lib/terminalColors.js";
 import jwt from "jsonwebtoken";
+import {unSubWithoutRes} from "./newsletter.controller.js";
 
 export const deleteAccount = async (req, res) => {
   try {
@@ -23,6 +24,8 @@ export const deleteAccount = async (req, res) => {
           .json({message: "You need admin power to delete this account."});
       }
     }
+    await unSubWithoutRes(userToDelete.email);
+
     const userOrders = await Order.findOne({client: userToDelete._id});
     if (!userOrders) {
       await User.findByIdAndDelete(userToDelete._id);
@@ -81,7 +84,9 @@ export const updateAccount = async (req, res) => {
 
     await userToUpdate.save();
 
-    return res.status(200).json({message: "Account updated."});
+    return res
+      .status(200)
+      .json({message: "Account updated.", user: userToUpdate});
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}User.updateAccount()${RED} function : ${RESET}`,
