@@ -22,6 +22,9 @@ import Logout from "./pages/Logout";
 import ChangeEmail from "./pages/ChangeEmail";
 import Register from "./pages/Register";
 import VerifyEmail from "./pages/VerifyEmail";
+import ForgottenPwd from "./pages/ForgottenPwd";
+import ChangePwd from "./pages/ChangePwd";
+import ArticleDetails from "./pages/ArticleDetails";
 
 export const router = createBrowserRouter([
   {
@@ -70,10 +73,30 @@ export const router = createBrowserRouter([
         element: <Shop />,
       },
       {
+        path: "/details/:id",
+        element: <ArticleDetails />,
+      },
+      {
         path: "/login",
         element: (
           <UserNotConnected>
             <Login />
+          </UserNotConnected>
+        ),
+      },
+      {
+        path: "/forgot",
+        element: (
+          <UserNotConnected>
+            <ForgottenPwd />
+          </UserNotConnected>
+        ),
+      },
+      {
+        path: "/change-pwd/:token",
+        element: (
+          <UserNotConnected>
+            <ChangePwd />
           </UserNotConnected>
         ),
       },

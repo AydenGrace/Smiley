@@ -98,3 +98,25 @@ export const sendDeleteAccountEmail = async (email) => {
 
   await transporter.sendMail(mailOptions);
 };
+
+export const sendForgottenPwdEmail = async (email, token) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Demande de récupération de compte",
+    html: `<p>Votre demande de récupération de compte a bien été reçue. Si cette demande n'est pas de votre initiative, merci d'ignorer le lien suivant : <a href="${process.env.FRONT}/change-pwd/${token}">Récupérer mon compte</a>.</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+export const sendChangePwdNotificationEmail = async (email) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Notification de changement de mot de passe.",
+    html: `<p>Nous vous notifions que le changement de mot de passe de votre compte s'est déroulé avec succès.</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};

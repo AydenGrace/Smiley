@@ -4,7 +4,12 @@ import Order from "../models/order.model.js";
 import UserTemp from "../models/tempuser.schema.js";
 import UserArchive from "../models/user-archive.model.js";
 import {tokenCreation, validatePassword} from "../lib/utils.js";
-import {sendConfirmationEmail, sendValidationAccount} from "../emails/email.js";
+import {
+  sendChangePwdNotificationEmail,
+  sendConfirmationEmail,
+  sendForgottenPwdEmail,
+  sendValidationAccount,
+} from "../emails/email.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -188,6 +193,73 @@ export const current = async (req, res) => {
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Auth.current()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error.message});
+  }
+};
+
+export const forgotPwd = async (req, res) => {
+  try {
+    const {email} = req.body;
+    //VERIFY ALREADY EXIST
+
+    let alreadyExist = await User.findOne({email});
+    if (!alreadyExist) return res.status(200).json({ok: true});
+
+    //Generate Token
+    const token = tokenCreation(email, "1h");
+    console.log(token);
+
+    await sendForgottenPwdEmail(email, token);
+    res.status(200).json({
+      ok: true,
+    });
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Auth.forgotPwd()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error.message});
+  }
+};
+
+export const changeForgotPwd = async (req, res) => {
+  try {
+    const {password} = req.body;
+    const {token} = req.params;
+    //VERIFY ALREADY EXIST
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    console.log(req.body);
+
+    console.log(decoded.content);
+
+    let alreadyExist = await User.findOne({email: decoded.content});
+    if (!alreadyExist)
+      return res.status(404).json({message: "User not found."});
+
+    //Verify pwd
+    if (!validatePassword(password))
+      return res.status(400).json({message: "To weak password"});
+
+    await User.findOneAndUpdate(
+      {email: decoded.content},
+      {password: await bcrypt.hash(password, 10)}
+    );
+    await sendChangePwdNotificationEmail(decoded.content);
+    return res.status(200).json({ok: true});
+  } catch (error) {
+    if (
+      error.name === "TokenExpiredError" ||
+      error.name === "JsonWebTokenError"
+    ) {
+      return res.redirect(
+        `${process.env.FRONT}/result-change-pwd?message=token_error`
+      );
+    }
+    console.log(
+      `${RED}Error in ${BLUE}Auth.forgotPwd()${RED} function : ${RESET}`,
       error
     );
     res.status(500).json({message: error.message});

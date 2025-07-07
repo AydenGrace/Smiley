@@ -85,3 +85,43 @@ export async function signOut() {
     credentials: "include",
   });
 }
+
+export async function forgottenPassword(email) {
+  try {
+    const response = await fetch(`${BASE_URL}/forgot-pwd`, {
+      method: "POST",
+      body: JSON.stringify({email}),
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+      credentials: "include",
+    });
+    const userConnected = await response.json();
+
+    // soit on récupère un utilisateur, soit un message
+    return userConnected;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function changeForgottenPassword(password, token) {
+  try {
+    const response = await fetch(`${BASE_URL}/change-pwd/${token}`, {
+      method: "PATCH",
+      body: JSON.stringify({password}),
+      headers: {
+        "Content-type": "application/json",
+        "Set-Cookie": "HttpOnly",
+      },
+      credentials: "include",
+    });
+    const userConnected = await response.json();
+
+    // soit on récupère un utilisateur, soit un message
+    return userConnected;
+  } catch (error) {
+    console.log(error);
+  }
+}
