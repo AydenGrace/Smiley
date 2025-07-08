@@ -1,41 +1,112 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
 import request from "supertest";
 import express from "express";
+import authAPI from "../src/routes/auth.route.js";
+import dotend from "dotenv";
+const mockingoose = require("mockingoose");
 
-import authRoute from "../src/routes/auth.route.js";
+// jest.mock("../src/models/user.model.js", () => {
+//   const mockQuery = {
+//     populate: jest.fn().mockReturnThis(),
+//     exec: jest.fn(),
+//     select: jest.fn().mockReturnThis(),
+//     sort: jest.fn().mockReturnThis(),
+//     limit: jest.fn().mockReturnThis(),
+//     skip: jest.fn().mockReturnThis(),
+//   };
 
-dotenv.config();
+//   return {
+//     findOne: jest.fn(() => mockQuery),
+//     findById: jest.fn(() => mockQuery),
+//     find: jest.fn(() => mockQuery),
+//     create: jest.fn(),
+//     findByIdAndUpdate: jest.fn(() => mockQuery),
+//     findByIdAndDelete: jest.fn(() => mockQuery),
+//     // Exposer le mockQuery pour pouvoir le configurer dans les tests
+//     __mockQuery: mockQuery,
+//   };
+// });
+
+import User from "../src/models/user.model.js";
+
+dotend.config();
 const app = express();
 app.use(express.json());
-app.use("/auth", authRoute);
+app.use("/auth", authAPI);
 
 describe("Authenticate", () => {
-  beforeEach((done) => {
-    mongoose
-      .connect(process.env.MONGODB_URI)
-      .then(() => {
-        done();
-      })
-      .catch((err) => done(err));
+  beforeEach(() => {
+    mockingoose.resetAll();
   });
 
-  it("should be login", (done) => {
-    request(app)
-      .post("/auth/signin")
-      .send({
-        email: "admin@smiley.fr",
-        password: "Crapie110597#@&%$",
-      })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .end(function (err, res) {
-        if (res.status === 400) return done("Mauvais Email et/ou Password");
-        if (err) return done(res.body.error);
+  test("should be logged", async () => {
+    // Object simulé
+    const mockedUser = {
+      _id: "68554adea25ed5041841f316",
+      fullname: "testuser",
+      email: "test@example.com",
+      password: "$2b$10$39i8u1jgywjsMjwmqpqsYumOnX9xpGO0YJxCSayjLdLoHh0Xvdmce",
+      token_modify: null,
+      role: {_id: "68554adea25ed5041841f316", name: "TEST"},
+      createdAt: "2025-07-08T11:14:54.529Z",
+    };
+    // force le retour de l'objet simulé sur un findOne
+    mockingoose(User).toReturn(mockedUser, "findOne");
 
-        assert.notEqual(res.body.message, "Mauvais Email et/ou Password");
-        return done();
-      });
+    //Requête
+    const response = await request(app).post("/auth/signin").send({
+      email: "test@example.com",
+      password: "$2b$10$hashedpassword",
+    });
+
+    //Vérification
+    expect(response.status).toBe(201);
+    expect(response.body).toStrictEqual({
+      _id: mockedUser._id,
+      fullname: mockedUser.fullname,
+      email: mockedUser.email,
+      isEmailMod: false,
+      role: mockedUser.role._id,
+      createdAt: mockedUser.createdAt,
+    });
+  });
+
+  test("should be Invalid credentials (email)", async () => {
+    // force le retour de l'objet simulé sur un findOne
+    mockingoose(User).toReturn(null, "findOne");
+
+    //Requête
+    const response = await request(app).post("/auth/signin").send({
+      email: "test@exmple.com",
+      password: "$2b$10$hashedpassword",
+    });
+
+    //Vérification
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Invalid credentials");
+  });
+
+  test("should be Invalid credentials (password)", async () => {
+    // Object simulé
+    const mockedUser = {
+      _id: "68554adea25ed5041841f316",
+      fullname: "testuser",
+      email: "test@example.com",
+      password: "$2b$10$39i8u1jgywjsMjwmqpqsYumOnX9xpGO0YJxCSayjLdLoHh0Xvdmce",
+      token_modify: null,
+      role: {_id: "68554adea25ed5041841f316", name: "TEST"},
+      createdAt: Date.now(),
+    };
+    // force le retour de l'objet simulé sur un findOne
+    mockingoose(User).toReturn(mockedUser, "findOne");
+
+    //Requête
+    const response = await request(app).post("/auth/signin").send({
+      email: "test@example.com",
+      password: "$2b$10$hashdpassword",
+    });
+
+    //Vérification
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Invalid credentials");
   });
 });

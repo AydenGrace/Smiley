@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import {AiOutlineShopping} from "react-icons/ai";
 import {TbFlameFilled} from "react-icons/tb";
+import {Link} from "react-router-dom";
 
 export default function ShopCard({
   product = {
@@ -43,7 +44,8 @@ export default function ShopCard({
       : product.desc;
 
   return (
-    <article
+    <Link
+      to={`/details/${product._id}`}
       className={`relative flex flex-col rounded-[10px] aspect-[56/75] overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
         product.is_featured && !staticSize
           ? "w-[335px] md:w-[440px] md:max-w-1/3"
@@ -79,6 +81,6 @@ export default function ShopCard({
           colored
         />
       </div>
-    </article>
+    </Link>
   );
 }

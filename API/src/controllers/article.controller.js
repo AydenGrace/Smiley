@@ -70,7 +70,20 @@ export const get = async (req, res) => {
     res.status(200).json(await Article.find().populate("type"));
   } catch (error) {
     console.log(
-      `${RED}Error in ${BLUE}Article.post()${RED} function : ${RESET}`,
+      `${RED}Error in ${BLUE}Article.get()${RED} function : ${RESET}`,
+      error.message
+    );
+    res.status(500).json({message: error.message});
+  }
+};
+
+export const getById = async (req, res) => {
+  try {
+    const {id} = req.params;
+    res.status(200).json(await Article.findById(id).populate("type"));
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Article.getById()${RED} function : ${RESET}`,
       error.message
     );
     res.status(500).json({message: error.message});

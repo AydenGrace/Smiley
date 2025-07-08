@@ -8,15 +8,18 @@
     "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "playwright test --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@lottiefiles/dotlottie-react": "^0.14.0",
+    "@playwright/test": "^1.53.2",
     "@tailwindcss/postcss": "^4.1.4",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "autoprefixer": "^10.4.21",
+    "playwright": "^1.53.2",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
