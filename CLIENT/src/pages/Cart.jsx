@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import TitleTwo from "../components/TitleTwo";
 import TitleThree from "../components/TitleThree";
 import Input from "../components/Input";
+import Button from "../components/Button";
+import { CartContext } from "../context/CartContext";
+import Counter from "../components/Counter";
 
 export default function Cart() {
   const [fact, setFact] = useState(false);
+  const { cart, getTotalPrice } = useContext(CartContext);
   return (
     <div className="flex w-full min-h-screen pt-[77px] px-[20%]">
       <div className="flex w-full py-10 flex-col gap-2.5">
@@ -76,10 +80,36 @@ export default function Cart() {
                 <Input label={"Pays"} placeholder="France" type="text" />
               </form>
             )}
+            <Button colored isFull text="Procéder au paiement" />
           </section>
 
           {/* Cart */}
-          <section className="flex w-full flex-col h-full"></section>
+          <section className="flex w-full flex-col h-full relative">
+            <div className="flex w-full flex-col sticky top-20 gap-2.5">
+              <TitleThree>Résumé du Panier</TitleThree>
+              <div className="bg-white w-full flex flex-col p-5 gap-2.5">
+                {cart.map((item, idx) => (
+                  <div
+                    className="flex justify-between items-center"
+                    key={`cart_item_${idx}`}
+                  >
+                    <div className="flex gap-2.5 items-center">
+                      <p>{item.article.title} </p>
+                      <Counter value={item.nb} />
+                    </div>
+                    <p className="font-medium">
+                      {item.article.price * item.nb} €
+                    </p>
+                  </div>
+                ))}
+                <hr className="border-b-1 w-full border-b-black/5 opacity-20" />
+                <div className="flex justify-between">
+                  <p className="font-semibold text-xl">Total</p>
+                  <p className="font-semibold text-xl">{getTotalPrice()} €</p>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

@@ -74,14 +74,20 @@ export default function CartProvider({ children }) {
     return cart.reduce((acc, cur) => acc + cur.nb, 0);
   };
 
+  const getTotalPrice = () => {
+    return cart.reduce((acc, cur) => acc + cur.article.price * cur.nb, 0);
+  };
+
   return (
     <CartContext.Provider
       value={{
+        cart,
         reset,
         removeToCart,
         addToCart,
         changeNbOfAnArticle,
         getNbArticles,
+        getTotalPrice,
       }}
     >
       {children}
