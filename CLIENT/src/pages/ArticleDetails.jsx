@@ -51,16 +51,19 @@ export default function ArticleDetails() {
   return (
     <div className="min-h-screen w-full flex flex-col pt-[70px]">
       {article ? (
-        <div className="w-full py-8 px-30 flex flex-col gap-8">
+        <div className="w-full py-8 flex flex-col gap-8">
           {/* BACK */}
-          <Link className="flex gap-2 opacity-70 items-center" to={"/shop"}>
+          <Link
+            className="flex gap-2 opacity-70 items-center ml-[15%]"
+            to={"/shop"}
+          >
             <FaArrowLeft size={16} />
             <p>Revenir à la boutique</p>
           </Link>
           {/* DESC / IMAGE */}
-          <div className="flex w-full justify-center gap-8">
+          <div className="flex w-full flex-col lg:flex-row justify-center gap-8 px-[20%]">
             {/* IMG */}
-            <div className="flex aspect-square min-w-[320px] w-[30vw] rounded-2xl overflow-hidden relative">
+            <div className="flex aspect-square min-w-[320px] rounded-2xl overflow-hidden relative">
               <img
                 src={selectedImg?.url}
                 alt={article.title}
@@ -89,7 +92,7 @@ export default function ArticleDetails() {
               )}
             </div>
             {/* DESC */}
-            <div className="flex w-full full max-w-1/3 flex-col gap-2">
+            <div className="flex w-full full flex-col gap-2">
               <Title>{article.title}</Title>
               <Stars nb={article.stars} />
               <TitleThree>
