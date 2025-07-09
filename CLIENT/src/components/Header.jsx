@@ -1,14 +1,16 @@
-import React, {useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "./Button";
-import {AiOutlineShopping} from "react-icons/ai";
-import {HiOutlineChartPie} from "react-icons/hi2";
-import {LuUserRound} from "react-icons/lu";
-import {UserContext} from "../context/UserContext";
+import { AiOutlineShopping } from "react-icons/ai";
+import { HiOutlineChartPie } from "react-icons/hi2";
+import { LuUserRound } from "react-icons/lu";
+import { UserContext } from "../context/UserContext";
 import Burger from "./Burger";
+import { CartContext } from "../context/CartContext";
 
 export default function Header() {
-  const {user, isAdmin} = useContext(UserContext);
+  const { user, isAdmin } = useContext(UserContext);
+  const { getNbArticles } = useContext(CartContext);
   const [opened, setOpened] = useState(null);
 
   return (
@@ -37,8 +39,13 @@ export default function Header() {
           <Link to={"/contact"}>
             <Button text="Contactez Nous" isEmpty />
           </Link>
-          <Link to={"/cart"}>
+          <Link className="relative" to={"/cart"}>
             <Button text="Panier" icon={<AiOutlineShopping size={"24px"} />} />
+            {getNbArticles() > 0 && (
+              <div className="absolute top-1.5 left-9 w-4 h-4 rounded-[100px] bg-red flex items-center justify-center text-xs text-white font-bold">
+                {getNbArticles()}
+              </div>
+            )}
           </Link>
           {isAdmin && (
             <Link to={"/admin"}>

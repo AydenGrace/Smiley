@@ -1,15 +1,15 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Homepage from "./pages/Homepage";
-import {rootLoader} from "./loaders/rootLoader";
+import { rootLoader } from "./loaders/rootLoader";
 import Privacy from "./pages/Privacy";
 import Legals from "./pages/Legals";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
-import {shopLoader} from "./loaders/shopLoader";
-import {orderLoader} from "./loaders/accountLoader";
+import { shopLoader } from "./loaders/shopLoader";
+import { orderLoader } from "./loaders/accountLoader";
 
 import Login from "./pages/Login";
 import UserNotConnected from "./secure/UserNotConnected";
@@ -25,6 +25,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import ForgottenPwd from "./pages/ForgottenPwd";
 import ChangePwd from "./pages/ChangePwd";
 import ArticleDetails from "./pages/ArticleDetails";
+import Cart from "./pages/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <ArticleDetails />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/login",

@@ -1,8 +1,10 @@
 import React from "react";
 import Button from "./Button";
-import {AiOutlineShopping} from "react-icons/ai";
-import {TbFlameFilled} from "react-icons/tb";
-import {Link} from "react-router-dom";
+import { AiOutlineShopping } from "react-icons/ai";
+import { TbFlameFilled } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function ShopCard({
   product = {
@@ -36,6 +38,7 @@ export default function ShopCard({
   },
   staticSize = false,
 }) {
+  const { addToCart } = useContext(CartContext);
   const imgURL = product.medias.find((item) => item.is_main === true).url;
 
   const desc =
@@ -76,9 +79,11 @@ export default function ShopCard({
           </p>
         </div>
         <Button
+          onClick={() => addToCart(product, 1)}
           icon={<AiOutlineShopping size={24} />}
           text="Ajouter au panier"
           colored
+          stopPropagation
         />
       </div>
     </Link>

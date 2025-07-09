@@ -1,10 +1,10 @@
-import {useEffect, useMemo, useState} from "react";
-import {UserContext} from "../context/UserContext";
-import {useLoaderData} from "react-router-dom";
-import {signin, signOut} from "../apis/auth.api";
+import { useEffect, useMemo, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { useLoaderData } from "react-router-dom";
+import { signin, signOut } from "../apis/auth.api";
 import toast from "react-hot-toast";
 
-export default function UserProvider({children}) {
+export default function UserProvider({ children }) {
   const initialUser = useLoaderData();
   const [user, setUser] = useState(initialUser);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -14,7 +14,6 @@ export default function UserProvider({children}) {
       setIsAdmin(false);
       return;
     }
-    // console.log(user);
     if (user.role._id === import.meta.env.VITE_ADMIN_UUID) {
       setIsAdmin(true);
     } else setIsAdmin(false);

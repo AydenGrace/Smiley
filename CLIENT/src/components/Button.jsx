@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 export default function Button({
   icon = null,
@@ -12,11 +12,16 @@ export default function Button({
   text = "Button",
   customClasses = "",
   defaultColor = null,
+  stopPropagation = false,
 }) {
   const [color, setColor] = useState(defaultColor);
   const [hovered, setHovered] = useState(false);
 
-  const onClickEvent = () => {
+  const onClickEvent = (e) => {
+    if (stopPropagation) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
     onClick();
   };
   return (

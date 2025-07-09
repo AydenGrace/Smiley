@@ -2,13 +2,13 @@ import React from "react";
 import Title from "../components/Title";
 import SubTitle from "../components/SubTitle";
 import Input from "../components/Input";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../components/Button";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {sendContactForm} from "../apis/contact.api";
-import {toast} from "react-hot-toast";
+import { sendContactForm } from "../apis/contact.api";
+import { toast } from "react-hot-toast";
 
 export default function Contact() {
   const schema = yup.object({
@@ -31,7 +31,7 @@ export default function Contact() {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     reset,
   } = useForm({
     defaultValues,
@@ -104,7 +104,7 @@ export default function Contact() {
               type="checkbox"
               id="contact_rgpd"
               required={true}
-              className="!rounded-[5px] mt-1 relative peer appearance-none min-w-4 max-w-4 maw-h-4 min-h-4 border border-primary cursor-pointer text-bg checked:bg-secondary checked:!bg-primary before:checked:content-[2714] before:checked:absolute before:checked:right-[1px] before:checked:top-[-5px] before:checked:text-primary check"
+              className="!rounded-[5px] mt-1 relative peer appearance-none min-w-4 max-w-4 max-h-4 min-h-4 border border-primary cursor-pointer text-bg checked:bg-secondary checked:!bg-primary before:checked:content-[2714] before:checked:absolute before:checked:right-[1px] before:checked:top-[-5px] before:checked:text-primary check"
             />
             <label htmlFor="contact_rgpd" className="pt-1">
               En continuant, vous validez avoir lu et accepté les 
