@@ -9,8 +9,6 @@ export const protectRoute = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
-    console.log(decoded);
-
     if (!decoded)
       return res
         .status(401)
@@ -52,8 +50,6 @@ export const protectAdminRoute = async (req, res, next) => {
       return res
         .status(401)
         .json({message: "Accès non authorisé. Utilisateur inconnu."});
-
-    console.log(user);
 
     if (user.role.name !== "ADMIN")
       return res

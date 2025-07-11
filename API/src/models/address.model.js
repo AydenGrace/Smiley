@@ -2,15 +2,16 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
   {
-    number: {
-      type: Number,
-      required: true,
-    },
-    further: {
-      type: String,
-    },
+    // number: {
+    //   type: Number,
+    //   required: true,
+    // },
+    // further: {
+    //   type: String,
+    // },
     street: {
       type: String,
+      required: true,
     },
     city: {
       type: String,

@@ -3,5 +3,5 @@ import {Navigate} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 export default function UserConnected({children}) {
   const {user} = useContext(UserContext);
-  return user ? children : <Navigate to="/" />;
+  return user ? children : <Navigate to="/login" />;
 }

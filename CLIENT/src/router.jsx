@@ -84,7 +84,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/validate-cart",
-        element: <ValidateCart />,
+        element: (
+          <UserConnected>
+            <ValidateCart />
+          </UserConnected>
+        ),
       },
       {
         path: "/login",

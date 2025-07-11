@@ -1,14 +1,14 @@
 import React from "react";
-import { CartContext } from "../context/CartContext";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import {CartContext} from "../context/CartContext";
+import {useState} from "react";
+import {useEffect} from "react";
+import {useContext} from "react";
+import {UserContext} from "../context/UserContext";
 
-export default function CartProvider({ children }) {
+export default function CartProvider({children}) {
   const [firstRender, setFirstRender] = useState(false);
   const [cart, setCart] = useState([]);
-  const { user } = useContext(UserContext);
+  const {user} = useContext(UserContext);
   useEffect(() => {
     reset();
     getLocalCart();
@@ -24,7 +24,7 @@ export default function CartProvider({ children }) {
       localStorage.getItem(`cart_${user?._id}`)
     );
     if (cartStorage) {
-      const { cart, userId } = cartStorage;
+      const {cart, userId} = cartStorage;
       if (user._id === userId) setCart(cart);
     }
   }
@@ -32,7 +32,7 @@ export default function CartProvider({ children }) {
   const saveLocalCart = () => {
     localStorage.setItem(
       `cart_${user?._id}`,
-      JSON.stringify({ cart, userId: user?._id })
+      JSON.stringify({cart, userId: user?._id})
     );
   };
 
@@ -46,7 +46,7 @@ export default function CartProvider({ children }) {
       const idx = cart.indexOf(elem);
 
       changeNbOfAnArticle(article, nb + cart[idx].nb);
-    } else setCart((current) => [...current, { article, nb }]);
+    } else setCart((current) => [...current, {article, nb}]);
   };
 
   const removeToCart = (article) => {
@@ -71,11 +71,14 @@ export default function CartProvider({ children }) {
   };
 
   const getNbArticles = () => {
-    return cart.reduce((acc, cur) => acc + cur.nb, 0);
+    return cart.reduce((acc, cur) => Number(acc + cur.nb), 0);
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((acc, cur) => acc + cur.article.price * cur.nb, 0);
+    return cart.reduce(
+      (acc, cur) => Number(acc + cur.article.price * cur.nb),
+      0
+    );
   };
 
   return (

@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getArticleById } from "../apis/article.api";
+import {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import {getArticleById} from "../apis/article.api";
 import Spinner from "../components/Spinner";
-import { FaArrowLeft } from "react-icons/fa6";
-import { TbFlameFilled } from "react-icons/tb";
+import {FaArrowLeft} from "react-icons/fa6";
+import {TbFlameFilled} from "react-icons/tb";
 import Title from "../components/Title";
 import TitleThree from "../components/TitleThree";
 import Button from "../components/Button";
 import Stars from "../components/Stars";
-import { AiOutlineShopping } from "react-icons/ai";
+import {AiOutlineShopping} from "react-icons/ai";
 import Counter from "../components/Counter";
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import {useContext} from "react";
+import {CartContext} from "../context/CartContext";
 
 export default function ArticleDetails() {
-  const { addToCart } = useContext(CartContext);
+  const {addToCart} = useContext(CartContext);
   const [article, setArticle] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);
   const [nbArticle, setNbArticle] = useState(1);
 
-  const { id } = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
     if (!id) return;
@@ -37,19 +37,19 @@ export default function ArticleDetails() {
     const idx = article.medias.indexOf(
       article.medias.find((im) => im.is_main === true)
     );
-    setSelectedImg({ url, idx });
+    setSelectedImg({url, idx});
     console.log(idx);
   }, [article]);
 
   const changeImageIdx = (idx) => {
-    setSelectedImg({ url: article.medias[idx].url, idx });
+    setSelectedImg({url: article.medias[idx].url, idx});
   };
 
   const addCarthandler = () => {
     addToCart(article, nbArticle);
   };
   return (
-    <div className="min-h-screen w-full flex flex-col pt-[70px]">
+    <div className="min-h-screen w-full flex flex-col pt-[70px] px-4">
       {article ? (
         <div className="w-full py-8 flex flex-col gap-8">
           {/* BACK */}
@@ -61,7 +61,7 @@ export default function ArticleDetails() {
             <p>Revenir à la boutique</p>
           </Link>
           {/* DESC / IMAGE */}
-          <div className="flex w-full flex-col lg:flex-row justify-center gap-8 px-[20%]">
+          <div className="flex w-full flex-col md:flex-row justify-center gap-8 lg:px-[10%] xl:px-[15%]">
             {/* IMG */}
             <div className="flex aspect-square min-w-[320px] rounded-2xl overflow-hidden relative">
               <img
