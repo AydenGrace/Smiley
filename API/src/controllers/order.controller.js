@@ -1,7 +1,10 @@
 import {BLUE, RED, RESET} from "../lib/terminalColors.js";
 import Order from "../models/order.model.js";
-import User from "../models/user.model.js";
 import Address from "../models/address.model.js";
+import Discount from "../models/discount.model.js";
+import Status from "../models/status.model.js";
+import Article from "../models/article.model.js";
+import History from "../models/history.model.js";
 
 export const getMyOrders = async (req, res) => {
   try {
@@ -19,12 +22,32 @@ export const makeOrder = async (req, res) => {
   try {
     const {address_delivery, address_billing, articles, discount} = req.body;
 
+    if (!articles || !articles.length)
+      return res
+        .status(400)
+        .json({message: "An Order needs at least one article."});
+
+    let orderToSave = new Order({
+      code: null,
+      delivery_code: null,
+      client: req.user,
+      address_delivery: null,
+      address_billing: null,
+      status: null,
+      histories: [],
+      articles: [],
+      discount: null,
+    });
+    // ADDRESSES
+    //Search for existing address to evoid redondance
     let addressDelivExist = await Address.findOne({
       street: address_delivery.street,
       city: address_delivery.city,
       zip_code: address_delivery.zip_code,
       country: address_delivery.country,
     });
+
+    // If new address, save it
     if (!addressDelivExist) {
       addressDelivExist = new Address({
         street: address_delivery.street,
@@ -33,9 +56,101 @@ export const makeOrder = async (req, res) => {
         country: address_delivery.country,
       });
       await addressDelivExist.save();
-      console.log(addressDelivExist);
+      console.log("Delivery address", addressDelivExist);
     } else {
-      console.log(addressDelivExist._id);
+      console.log("Delivery address", addressDelivExist._id);
+    }
+    // addressDelivExist contain an saved address
+    orderToSave.address_delivery = addressDelivExist;
+    // Verify billing address
+    let addressBillExist;
+    if (address_billing !== address_delivery) {
+      // Find billing address
+      addressBillExist = await Address.findOne({
+        street: address_billing.street,
+        city: address_billing.city,
+        zip_code: address_billing.zip_code,
+        country: address_billing.country,
+      });
+      // If new address, save it
+      if (!addressBillExist) {
+        addressBillExist = new Address({
+          street: address_billing.street,
+          city: address_billing.city,
+          zip_code: address_billing.zip_code,
+          country: address_billing.country,
+        });
+        await addressBillExist.save();
+        console.log("Billing address", addressBillExist);
+      } else {
+        console.log("Billing address", addressBillExist._id);
+      }
+    } else {
+      addressBillExist = {...addressDelivExist};
+      console.log("Billing address", addressBillExist);
+    }
+    // Addresses set
+    orderToSave.address_billing = addressBillExist;
+    // DISCOUNT
+    if (discount) {
+      const discountFound = await Discount.findById({discount});
+      if (discountFound) orderToSave.discount = discountFound;
+    }
+    // STATUS
+    let statusExist = await Status.findOne({title: "En attente"});
+    if (!statusExist) {
+      // If status doesn't exist, create it
+      statusExist = new Status({
+        title: "En attente",
+        desc: "Votre commande est en attente de traitement.",
+      });
+      await statusExist.save();
+    }
+    orderToSave.status = statusExist;
+    // ARTICLES
+    let allArticles = [];
+    let tmpArticle;
+    for (let i = 0; i < articles.length; i++) {
+      tmpArticle = null;
+      tmpArticle = await Article.findById(articles[i].article);
+      if (!tmpArticle)
+        return res
+          .status(404)
+          .json({message: `Article ${articles[i].article} not found.`});
+      allArticles.push({
+        article: tmpArticle,
+        amount: articles[i].amount,
+        unit_price: tmpArticle.price,
+      });
+    }
+    orderToSave.articles = allArticles;
+    // CODE
+    orderToSave.code = `CMD_${orderToSave.client._id
+      .toString()
+      .toUpperCase()
+      .substring(10, 15)}_${new Date(Date.now()).getDate()}${new Date(
+      Date.now()
+    ).getMilliseconds()}`;
+
+    // HISTORIES
+    let tmpHistory = new History({
+      content: `Commande ${orderToSave.code} enregistrée`,
+    });
+    tmpHistory.save();
+    orderToSave.histories.push(tmpHistory);
+
+    // SAVING ORDER
+    orderToSave.save();
+    console.log("Order ", orderToSave);
+
+    // Reduce articles stock after order saving
+    for (let i = 0; i < orderToSave.articles.length; i++) {
+      let stock = await Article.findById(orderToSave.articles[i].article);
+      console.log(stock);
+
+      await Article.findByIdAndUpdate(orderToSave.articles[i].article, {
+        stock: stock.stock - orderToSave.articles[i].amount,
+      });
     }
   } catch (error) {
     console.log(

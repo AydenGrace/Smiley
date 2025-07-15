@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
   {
+    code: {
+      type: String,
+      unique: true,
+    },
     delivery_code: {
       type: String,
       unique: true,

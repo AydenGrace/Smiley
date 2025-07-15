@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 
 export const init = async () => {
   try {
-    console.log(process.env.ADMIN_PWD);
-
     const adminRole = await Role.findOne({name: "ADMIN"});
     if (!adminRole)
       return console.log(
