@@ -10,6 +10,7 @@ import * as yup from "yup";
 import {UserContext} from "../context/UserContext";
 import {loadStripe} from "@stripe/stripe-js";
 import {makeOrder} from "../apis/order.api";
+import {toast} from "react-hot-toast";
 
 export default function ValidateCart() {
   const [fact, setFact] = useState(false);
@@ -154,7 +155,7 @@ export default function ValidateCart() {
     }
 
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-    const stripeSessionId = await makeOrder({
+    const response = await makeOrder({
       client: user._id,
       address_delivery: {
         street: values.delivery_address,
@@ -171,6 +172,13 @@ export default function ValidateCart() {
       articles: compressedCart,
       discount: null,
     });
+    if (response?.session) {
+      await stripe.redirectToCheckout({
+        sessionId: response.session,
+      });
+    } else {
+      toast.error(response.message);
+    }
   };
 
   return (

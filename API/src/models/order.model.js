@@ -8,7 +8,6 @@ const schema = new mongoose.Schema(
     },
     delivery_code: {
       type: String,
-      unique: true,
     },
     client: {
       type: mongoose.Schema.Types.ObjectId,

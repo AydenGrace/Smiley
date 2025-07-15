@@ -5,6 +5,7 @@ import Discount from "../models/discount.model.js";
 import Status from "../models/status.model.js";
 import Article from "../models/article.model.js";
 import History from "../models/history.model.js";
+import Stripe from "stripe";
 
 export const getMyOrders = async (req, res) => {
   try {
@@ -152,6 +153,7 @@ export const makeOrder = async (req, res) => {
         stock: stock.stock - orderToSave.articles[i].amount,
       });
     }
+    await StripeOrder(orderToSave, res);
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Order.makeOrder()${RED} function : ${RESET}`,
@@ -159,4 +161,38 @@ export const makeOrder = async (req, res) => {
     );
     res.status(500).json({message: error});
   }
+};
+
+const StripeOrder = async (order, res) => {
+  let stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+  let items = [];
+
+  for (let i = 0; i < order.articles.length; i++) {
+    items.push({
+      price_data: {
+        currency: "eur",
+        product_data: {
+          name: order.articles[i].article.title,
+          description: order.articles[i].article.desc,
+        },
+        unit_amount: Math.round(order.articles[i].unit_price * 100),
+      },
+      quantity: order.articles[i].amount,
+    });
+  }
+
+  console.log(items);
+
+  const stripeSession = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [...items],
+    mode: "payment",
+    success_url: `${process.env.FRONT}/order_success/${order._id}`,
+    cancel_url: `${process.env.FRONT}/order_failed/${order._id}`,
+  });
+
+  console.log(stripeSession);
+
+  return res.status(200).json({session: stripeSession.id});
 };
