@@ -134,11 +134,10 @@ export const makeOrder = async (req, res) => {
     ).getMilliseconds()}`;
 
     // HISTORIES
-    let tmpHistory = new History({
-      content: `Commande ${orderToSave.code} enregistrée`,
-    });
-    tmpHistory.save();
-    orderToSave.histories.push(tmpHistory);
+    orderToSave = await addHistory(
+      orderToSave,
+      `Commande ${orderToSave.code} enregistrée`
+    );
 
     // SAVING ORDER
     orderToSave.save();
@@ -188,11 +187,69 @@ const StripeOrder = async (order, res) => {
     payment_method_types: ["card"],
     line_items: [...items],
     mode: "payment",
-    success_url: `${process.env.FRONT}/order_success/${order._id}`,
-    cancel_url: `${process.env.FRONT}/order_failed/${order._id}`,
+    success_url: `${process.env.FRONT}/order-success/${order._id}`,
+    cancel_url: `${process.env.FRONT}/order-failed/${order._id}`,
   });
 
   console.log(stripeSession);
 
   return res.status(200).json({session: stripeSession.id});
+};
+
+export const cancelOrder = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const order = await Order.findById(id);
+    if (!order) return res.status(404).json({message: "Order not found."});
+    // Reset stock
+    for (let i = 0; i < order.articles.length; i++) {
+      let stock = await Article.findById(order.articles[i].article);
+      await Article.findByIdAndUpdate(order.articles[i].article, {
+        stock: stock.stock + order.articles[i].amount,
+      });
+    }
+    // Delete histories
+    for (let i = 0; i < order.histories.length; i++) {
+      await History.findByIdAndDelete(order.histories[i]);
+    }
+    await Order.findByIdAndDelete(id);
+    res.status(200).json({ok: true});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.cancelOrder()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
+export const validateOrder = async (req, res) => {
+  try {
+    const {id} = req.params;
+    let order = await Order.findById(id);
+    if (!order) return res.status(404).json({message: "Order not found."});
+    if (order.is_paid) return res.status(200).json({ok: true});
+    // Add histories
+    order.is_paid = true;
+    order = await addHistory(order, `Commande payée et validée`);
+    await order.save();
+
+    return res.status(200).json({ok: true});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.validateOrder()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
+const addHistory = async (order, history_content) => {
+  let tmpHistory = new History({
+    content: history_content,
+    code: order.code,
+  });
+  await tmpHistory.save();
+  order.histories.push(tmpHistory);
+  return order;
 };

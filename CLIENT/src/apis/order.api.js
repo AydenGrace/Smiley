@@ -29,3 +29,31 @@ export async function makeOrder(values) {
     console.log(error);
   }
 }
+export async function validateOrder(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/validate/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function cancelOrder(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/cancel/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

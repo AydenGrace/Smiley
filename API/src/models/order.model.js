@@ -58,6 +58,10 @@ const schema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Discount",
     },
+    is_paid: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
