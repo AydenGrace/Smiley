@@ -20,7 +20,7 @@ export default function CartItem({cartItem, isAlreadyOrdered = false}) {
         <h2 className="font-medium text-[20px]">{cartItem.article.title}</h2>
         <p className="opacity-70">
           {isAlreadyOrdered
-            ? `Quantitée : ${cartItem.amount} x ${cartItem.article.price}€`
+            ? `${cartItem.amount} x ${cartItem.article.price}€`
             : `${cartItem.article.price * cartItem.nb} €`}
         </p>
       </div>

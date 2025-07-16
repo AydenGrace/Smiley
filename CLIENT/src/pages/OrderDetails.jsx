@@ -43,9 +43,9 @@ export default function OrderDetails() {
           {/* CART */}
           <section className="bg-white shadow-xl rounded-2xl flex flex-col w-full overflow-hidden">
             {/* TITLE & BTN */}
-            <div className="flex p-4 w-full justify-between items-center border-b-2 border-b-black/20 flex-wrap">
+            <div className="flex p-4 w-full justify-center sm:justify-between items-center border-b-2 border-b-black/20 flex-wrap">
               <div className="flex flex-col">
-                <h1 className="text-2xl font-medium">
+                <h1 className="text-xl sm:text-2xl font-medium">
                   <span className="font-semibold text-primary">Commande</span> #
                   {order.code}
                 </h1>
