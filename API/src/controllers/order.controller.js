@@ -21,6 +21,29 @@ export const getMyOrders = async (req, res) => {
   }
 };
 
+export const getMyOrderDetails = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const order = await Order.findById(id)
+      .populate("status")
+      .populate("articles.article")
+      .populate("histories")
+      .populate("address_billing")
+      .populate("address_delivery")
+      .populate("discount");
+
+    if (!order.client.equals(req.user._id))
+      return res.status(401).json({message: "You can only get yours orders."});
+    return res.status(200).json({order});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.getMyOrders()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
 export const makeOrder = async (req, res) => {
   try {
     const {address_delivery, address_billing, articles, discount} = req.body;

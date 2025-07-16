@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 
 export default function Button({
   icon = null,
@@ -37,7 +37,7 @@ export default function Button({
                 ? "w-10 h-10 rounded-[100px]"
                 : isSquare
                 ? "w-10 h-10 rounded-[4px]"
-                : "rounded-md py-2 px-5 gap-2 flex "
+                : "rounded-md py-2 px-5 gap-2 h-fit flex "
             } cursor-pointer ${
               !isEmpty
                 ? !isFull

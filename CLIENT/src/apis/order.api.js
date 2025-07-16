@@ -14,6 +14,22 @@ export async function getUserOrders(id) {
     console.log(error);
   }
 }
+
+export async function getMyOrderDetails(orderId) {
+  try {
+    const response = await fetch(`${BASE_URL}/my-details/${orderId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function makeOrder(values) {
   try {
     const response = await fetch(`${BASE_URL}/`, {
