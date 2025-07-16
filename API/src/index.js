@@ -13,6 +13,7 @@ import mediaAPI from "./routes/media.route.js";
 import articleAPI from "./routes/article.route.js";
 import orderAPI from "./routes/order.route.js";
 import contactAPI from "./routes/contact.route.js";
+import statsAPI from "./routes/stats.route.js";
 
 import {init} from "./init.js";
 
@@ -43,6 +44,7 @@ app.use("/media", mediaAPI);
 app.use("/article", articleAPI);
 app.use("/order", orderAPI);
 app.use("/contact", contactAPI);
+app.use("/stats", statsAPI);
 
 app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(__DIRNAME, "CLIENT", "dist", "index.html"));

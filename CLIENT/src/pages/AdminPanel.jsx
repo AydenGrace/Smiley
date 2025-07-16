@@ -11,7 +11,7 @@ export default function AdminPanel() {
         <section className="flex flex-col shadow-xl bg-white rounded-[10px] w-full overflow-hidden">
           <div className="flex p-4 items-center gap-4 border-b-[1px] border-b-black/20">
             <h1 className="text-2xl font-bold text-gray-800">
-              Admin Dashboard
+              Panel Administrateur
             </h1>
           </div>
           <div className="flex border-b-[1px] border-b-black/20">
