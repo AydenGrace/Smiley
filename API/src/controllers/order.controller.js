@@ -9,7 +9,9 @@ import Stripe from "stripe";
 
 export const getMyOrders = async (req, res) => {
   try {
-    res.status(200).json(await Order.find({client: req.user._id}));
+    res
+      .status(200)
+      .json(await Order.find({client: req.user._id}).populate("status"));
   } catch (error) {
     console.log(
       `${RED}Error in ${BLUE}Order.getMyOrders()${RED} function : ${RESET}`,

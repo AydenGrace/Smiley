@@ -29,6 +29,7 @@ import Cart from "./pages/Cart";
 import ValidateCart from "./pages/ValidateCart";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderCancel from "./pages/OrderCancel";
+import OrderDetails from "./pages/OrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +106,14 @@ export const router = createBrowserRouter([
         element: (
           <UserConnected>
             <OrderCancel />
+          </UserConnected>
+        ),
+      },
+      {
+        path: "/order-details/:id",
+        element: (
+          <UserConnected>
+            <OrderDetails />
           </UserConnected>
         ),
       },
