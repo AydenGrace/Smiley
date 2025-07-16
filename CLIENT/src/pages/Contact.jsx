@@ -1,16 +1,19 @@
-import React from "react";
+import React, {useContext} from "react";
 import Title from "../components/Title";
 import SubTitle from "../components/SubTitle";
 import Input from "../components/Input";
-import { Link } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Button from "../components/Button";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { sendContactForm } from "../apis/contact.api";
-import { toast } from "react-hot-toast";
+import {sendContactForm} from "../apis/contact.api";
+import {toast} from "react-hot-toast";
+import {UserContext} from "../context/UserContext";
 
 export default function Contact() {
+  const {object} = useParams();
+  const {user} = useContext(UserContext);
   const schema = yup.object({
     fullname: yup.string().required("Veuillez indiquer votre nom."),
     email: yup
@@ -22,16 +25,16 @@ export default function Contact() {
     rgpd: yup.bool().required("Veuillez accepter les conditions"),
   });
   const defaultValues = {
-    email: "",
-    fullname: "",
+    email: user ? user.email : "",
+    fullname: user ? user.fullname : "",
     rgpd: false,
-    subject: "",
+    subject: object ? `Problème avec la commande ${object}` : "",
     message: "",
   };
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
     reset,
   } = useForm({
     defaultValues,

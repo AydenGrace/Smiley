@@ -57,7 +57,7 @@ export default function OrderDetails() {
                   })}
                 </p>
               </div>
-              <Link to={"/contact"}>
+              <Link to={`/contact/${order.code}`}>
                 <Button
                   colored
                   defaultColor={"#dc2626"}

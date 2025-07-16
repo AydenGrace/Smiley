@@ -30,6 +30,11 @@ import ValidateCart from "./pages/ValidateCart";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderCancel from "./pages/OrderCancel";
 import OrderDetails from "./pages/OrderDetails";
+import AdminPanel from "./pages/AdminPanel";
+import AdminConnected from "./secure/AdminConnected";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminArticles from "./pages/AdminArticles";
+import AdminSales from "./pages/AdminSales";
 
 export const router = createBrowserRouter([
   {
@@ -69,7 +74,7 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/contact",
+        path: "/contact/:object?",
         element: <Contact />,
       },
       {
@@ -84,6 +89,30 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/admin",
+        element: (
+          <UserConnected>
+            <AdminConnected>
+              <AdminPanel />
+            </AdminConnected>
+          </UserConnected>
+        ),
+        children: [
+          {
+            index: 1,
+            element: <AdminDashboard />,
+          },
+          {
+            path: "articles",
+            element: <AdminArticles />,
+          },
+          {
+            path: "sales",
+            element: <AdminSales />,
+          },
+        ],
       },
       {
         path: "/validate-cart",
