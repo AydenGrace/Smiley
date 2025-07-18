@@ -28,3 +28,18 @@ export async function getArticleById(id) {
     console.log(error);
   }
 }
+
+export async function getTypes() {
+  try {
+    const response = await fetch(`${BASE_URL}-type/`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

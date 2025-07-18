@@ -4,16 +4,33 @@ import Button from "../components/Button";
 import {FaPlus} from "react-icons/fa6";
 import {CiSearch} from "react-icons/ci";
 import {GoPencil, GoTrash} from "react-icons/go";
+import {IoChevronDown} from "react-icons/io5";
 
 export default function AdminArticles() {
   const products = useLoaderData();
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortName, setSortName] = useState(false);
 
   const filteredProducts = products.filter(
     (product) =>
       product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.type.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const sortedProducts = filteredProducts.sort((a, b) =>
+    sortName ? b.title.localeCompare(a.title) : a.title.localeCompare(b.title)
+  );
+
+  const sortClick = () => {
+    if (!sortName) {
+      document.getElementById("chevron_name").style.transform =
+        "rotate(180deg)";
+    } else {
+      document.getElementById("chevron_name").style.transform = "rotate(0deg)";
+    }
+    setSortName((current) => !current);
+  };
+
   return (
     <div className="flex w-full p-4 flex-col gap-4">
       <div className="w-full flex justify-between items-center gap-4">
@@ -41,17 +58,36 @@ export default function AdminArticles() {
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Article
+              <th className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div
+                  className="flex itmes-center gap-1 cursor-pointer"
+                  onClick={sortClick}
+                >
+                  Article{" "}
+                  <IoChevronDown
+                    size={14}
+                    id="chevron_name"
+                    className="transition delay-150 duration-300 ease-in-out"
+                  />
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Catégorie
+              <th className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex itmes-center gap-1">
+                  Catégorie
+                  {/* <IoChevronDown size={14} /> */}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Prix
+              <th className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex itmes-center gap-1">
+                  Prix
+                  {/* <IoChevronDown size={14} /> */}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Mise en avant
+              <th className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex itmes-center gap-1">
+                  Mise en avant
+                  {/* <IoChevronDown size={14} /> */}
+                </div>
               </th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
@@ -59,7 +95,7 @@ export default function AdminArticles() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredProducts.map((product) => (
+            {sortedProducts.map((product) => (
               <tr key={product._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
