@@ -35,6 +35,8 @@ import AdminConnected from "./secure/AdminConnected";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminArticles from "./pages/AdminArticles";
 import AdminSales from "./pages/AdminSales";
+import {articlesLoader} from "./loaders/adminLoader";
+import AdminArticleDetails from "./pages/AdminArticleDetails";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +93,16 @@ export const router = createBrowserRouter([
         element: <Cart />,
       },
       {
+        path: "/manage-article/:id",
+        element: (
+          <UserConnected>
+            <AdminConnected>
+              <AdminArticleDetails />
+            </AdminConnected>
+          </UserConnected>
+        ),
+      },
+      {
         path: "/admin",
         element: (
           <UserConnected>
@@ -106,6 +118,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "articles",
+            loader: articlesLoader,
             element: <AdminArticles />,
           },
           {

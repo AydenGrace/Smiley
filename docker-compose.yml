@@ -1,0 +1,52 @@
+services:
+  frontend:
+    build: /CLIENT
+    ports:
+      - 5173:5173
+    environment:
+      # Système de Vite équivalent à nodemon
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - type: bind
+        source: ./CLIENT
+        target: /app
+        # Evite d'envoyer 2 node_modules et de casser les dépendances
+      - type: volume
+        target: /app/node_modules
+    #Evite des conflits avec nodemon
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+  backend:
+    build: /API
+    volumes:
+      - type: bind
+        source: ./API
+        target: /app
+      # Evite d'envoyer 2 node_modules et de casser les dépendances
+      - type: volume
+        target: /app/node_modules
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+  reverse-proxy:
+    build: /reverse-proxy
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+      - backend
+  # test:
+  #   build: /CLIENT
+  #   command: ["npm", "run", "test"]
+  #   environment:
+  #     # Système de Vite équivalent à nodemon
+  #     CHOKIDAR_USEPOLLING: "true"
+  #   volumes:
+  #     - type: bind
+  #       source: ./CLIENT
+  #       target: /app
+  #       # Evite d'envoyer 2 node_modules et de casser les dépendances
+  #     - type: volume
+  #       target: /app/node_modules
