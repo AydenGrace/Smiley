@@ -63,11 +63,10 @@ export default function ArticleDetails() {
           {/* DESC / IMAGE */}
           <div className="flex w-full flex-col md:flex-row justify-center gap-8 lg:px-[10%] xl:px-[15%]">
             {/* IMG */}
-            <div className="flex aspect-square min-w-[320px] rounded-2xl overflow-hidden relative">
-              <img
-                src={selectedImg?.url}
-                alt={article.title}
-                className="object-cover object-center"
+            <div className="flex aspect-square w-[80%] rounded-2xl overflow-hidden relative">
+              <div
+                className="object-cover object-center bg-center bg-cover flex flex-1"
+                style={{backgroundImage: `url(${selectedImg?.url})`}}
               />
               {article.is_featured && (
                 <div className="absolute top-4 left-4 bg-primary rounded flex gap-1 px-2 py-0.5 items-center text-white cursor-default z-20">
