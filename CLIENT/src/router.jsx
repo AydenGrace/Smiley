@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/manage-article/:id",
+        path: "/manage-article/:id?",
         element: (
           <UserConnected>
             <AdminConnected>

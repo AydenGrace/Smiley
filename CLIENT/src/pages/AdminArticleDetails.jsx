@@ -3,7 +3,12 @@ import {GoTrash} from "react-icons/go";
 import {FaArrowLeft} from "react-icons/fa6";
 import Button from "../components/Button";
 import {useNavigate} from "react-router-dom";
-import {getArticleById, getTypes, updateArticle} from "../apis/article.api";
+import {
+  getArticleById,
+  getTypes,
+  postArticle,
+  updateArticle,
+} from "../apis/article.api";
 import {useParams} from "react-router-dom";
 import {FaPlus, FaStar} from "react-icons/fa6";
 import {RxCross2} from "react-icons/rx";
@@ -13,18 +18,35 @@ import toast from "react-hot-toast";
 export default function AdminArticleDetails() {
   const navigate = useNavigate();
   const {id} = useParams();
-  const [product, setProduct] = useState(null);
   const [types, setTypes] = useState([]);
+
+  const [product, setProduct] = useState({
+    title: "Titre de l'article",
+    desc: "Ceci est une description",
+    price: 0,
+    stock: 0,
+    is_show: true,
+    type: !id && types.length ? types[0] : null,
+    is_featured: false,
+    medias: [],
+  });
 
   useEffect(() => {
     const getDatas = async () => {
+      setTypes(await getTypes());
+      if (!id) return;
+
       let response = await getArticleById(id);
       console.log(response);
       if (response) setProduct(response);
-      setTypes(await getTypes());
     };
     getDatas();
   }, [id]);
+
+  useEffect(() => {
+    if (!types.length) return;
+    if (!product.type) setProduct((prev) => ({...prev, type: types[0]}));
+  }, [types]);
 
   const [newImageUrl, setNewImageUrl] = useState("");
 
@@ -36,6 +58,8 @@ export default function AdminArticleDetails() {
       return setProduct((prev) => ({...prev, desc: value}));
     if (name === "price")
       return setProduct((prev) => ({...prev, price: Number(value)}));
+    if (name === "stock")
+      return setProduct((prev) => ({...prev, stock: Number(value)}));
     if (name === "featured")
       return setProduct((prev) => ({
         ...prev,
@@ -85,8 +109,19 @@ export default function AdminArticleDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateArticle(product);
-      toast.success("Article mit à jour.");
+      if (!id) {
+        const response = await postArticle(product);
+        if (response.message) {
+          toast.error(response.message);
+        } else {
+          toast.success("Article enregistré.");
+
+          navigate(`manage-article/${response._id}`);
+        }
+      } else {
+        await updateArticle(product);
+        toast.success("Article mit à jour.");
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -154,7 +189,7 @@ export default function AdminArticleDetails() {
                     </label>
                     <select
                       name="category"
-                      value={product?.type.name}
+                      value={product?.type?.name}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#0C9619] focus:border-transparent"
                       required
@@ -165,6 +200,20 @@ export default function AdminArticleDetails() {
                         </option>
                       ))}
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-700 mb-2">Stock</label>
+                    <input
+                      type="number"
+                      name="stock"
+                      value={product?.stock}
+                      onChange={handleInputChange}
+                      step="1"
+                      min="0"
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#0C9619] focus:border-transparent"
+                      required
+                    />
                   </div>
 
                   <div>
@@ -193,17 +242,17 @@ export default function AdminArticleDetails() {
                     <label className="block text-gray-700 mb-2">
                       Images de l'article
                     </label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {product?.medias.map((imageUrl, index) => (
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                      {product?.medias?.map((imageUrl, index) => (
                         <div key={index} className="group relative group">
                           <img
-                            src={imageUrl.url}
+                            src={imageUrl?.url}
                             alt={`Product ${index + 1}`}
                             className={`w-full h-32 object-cover rounded-lg ${
-                              imageUrl.is_main ? "ring-2 ring-primary" : ""
+                              imageUrl?.is_main ? "ring-2 ring-primary" : ""
                             }`}
                           />
-                          {imageUrl.is_main && (
+                          {imageUrl?.is_main && (
                             <>
                               <div className="absolute flex flex-1 p-2 justify-end w-full h-full z-10 bg-radial from-primary/0 from-70% to-primary top-0 rounded-lg group-hover:hidden">
                                 <div className="bg-white text-primary p-1 rounded-full transition-colors h-fit w-fit cursor-pointer">
@@ -280,7 +329,10 @@ export default function AdminArticleDetails() {
             </h3>
             <div className="flex items-center space-x-6">
               <img
-                src={product?.medias.find((im) => im.is_main === true).url}
+                src={
+                  product?.medias.find((im) => im.is_main === true)?.url ||
+                  "https://citygem.app/wp-content/uploads/2024/08/placeholder-1-1.png"
+                }
                 alt={product?.title}
                 className="w-32 h-32 object-cover rounded-lg"
               />

@@ -1,10 +1,10 @@
 import React from "react";
 import Button from "./Button";
-import { AiOutlineShopping } from "react-icons/ai";
-import { TbFlameFilled } from "react-icons/tb";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import {AiOutlineShopping} from "react-icons/ai";
+import {TbFlameFilled} from "react-icons/tb";
+import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {CartContext} from "../context/CartContext";
 
 export default function ShopCard({
   product = {
@@ -38,7 +38,7 @@ export default function ShopCard({
   },
   staticSize = false,
 }) {
-  const { addToCart } = useContext(CartContext);
+  const {addToCart} = useContext(CartContext);
   const imgURL = product.medias.find((item) => item.is_main === true).url;
 
   const desc =
@@ -55,20 +55,19 @@ export default function ShopCard({
           : "w-[335px]"
       }`}
     >
-      <div className="relative w-full flex flex-1">
+      <div className="relative w-full flex flex-1 max-h-[70%]  cursor-pointer">
         {product.is_featured && (
           <div className="absolute top-4 left-4 bg-primary rounded flex gap-1 px-2 py-0.5 items-center text-white cursor-default z-20">
             <TbFlameFilled size={18} />
             <p className="font-semibold">En Vedette</p>
           </div>
         )}
-        <img
-          src={imgURL}
-          alt={product.title}
-          className="object-cover object-center hover:scale-120 z-10 transition-all duration-750 ease-in-out cursor-pointer"
-        />
+        <div
+          className="flew flex-1 bg-center bg-cover hover:scale-120 transition-all duration-750 ease-in-out"
+          style={{backgroundImage: `url(${imgURL})`}}
+        ></div>
       </div>
-      <div className="flex w-full flex-col p-4 pt-2.5 bg-white z-20">
+      <div className="flex w-full flex-col p-4 pt-2.5 bg-white z-20 min-h-[139px]">
         <div className="flex justify-between items-center cursor-default">
           <h3 className="text-2xl">{product.title}</h3>
           <h3 className="text-2xl text-primary">{product.price} €</h3>

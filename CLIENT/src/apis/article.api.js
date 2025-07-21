@@ -14,6 +14,22 @@ export async function getArticles() {
     console.log(error);
   }
 }
+
+export async function postArticle(newArticle) {
+  try {
+    const response = await fetch(`${BASE_URL}/`, {
+      method: "POST",
+      body: JSON.stringify(newArticle),
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getArticleById(id) {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
