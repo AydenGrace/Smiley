@@ -37,12 +37,14 @@ export default function AdminArticles() {
         <h2 className="text-xl font-semibold text-gray-800">
           Gestion des articles
         </h2>
-        <Button
-          colored
-          isFull
-          text="Ajouter un article"
-          icon={<FaPlus size={24} />}
-        />
+        <Link to={"/manage-article"}>
+          <Button
+            colored
+            isFull
+            text="Ajouter un article"
+            icon={<FaPlus size={24} />}
+          />
+        </Link>
       </div>
       <div className="relative">
         <input

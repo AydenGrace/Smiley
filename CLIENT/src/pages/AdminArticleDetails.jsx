@@ -115,8 +115,7 @@ export default function AdminArticleDetails() {
           toast.error(response.message);
         } else {
           toast.success("Article enregistré.");
-
-          navigate(`manage-article/${response._id}`);
+          navigate(`${response._id}`);
         }
       } else {
         await updateArticle(product);
@@ -139,13 +138,15 @@ export default function AdminArticleDetails() {
               <FaArrowLeft size={16} />
               Revenir aux articles
             </button>
-            <Button
-              onClick={handleDelete}
-              colored
-              defaultColor={"#dc2626"}
-              text="Supprimer l'article"
-              icon={<GoTrash size={20} />}
-            />
+            {id && (
+              <Button
+                onClick={handleDelete}
+                colored
+                defaultColor={"#dc2626"}
+                text="Supprimer l'article"
+                icon={<GoTrash size={20} />}
+              />
+            )}
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
