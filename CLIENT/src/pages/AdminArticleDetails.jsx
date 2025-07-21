@@ -3,11 +3,12 @@ import {GoTrash} from "react-icons/go";
 import {FaArrowLeft} from "react-icons/fa6";
 import Button from "../components/Button";
 import {useNavigate} from "react-router-dom";
-import {getArticleById, getTypes} from "../apis/article.api";
+import {getArticleById, getTypes, updateArticle} from "../apis/article.api";
 import {useParams} from "react-router-dom";
 import {FaPlus, FaStar} from "react-icons/fa6";
 import {RxCross2} from "react-icons/rx";
 import {CiSaveDown2} from "react-icons/ci";
+import toast from "react-hot-toast";
 
 export default function AdminArticleDetails() {
   const navigate = useNavigate();
@@ -47,9 +48,26 @@ export default function AdminArticleDetails() {
       }));
   };
 
-  const handleAddImage = () => {};
+  const handleAddImage = () => {
+    setProduct((prev) => ({
+      ...prev,
+      medias: [...prev.medias, {url: newImageUrl, is_main: false}],
+    }));
+    setNewImageUrl("");
+  };
 
-  const handleRemoveImage = (image) => {};
+  const handleRemoveImage = (image) => {
+    console.log(image);
+    let tmpMedias = product.medias.filter((item) => item !== image);
+    if (image.is_main && tmpMedias.length) {
+      tmpMedias[0].is_main = true;
+    }
+
+    setProduct((prev) => ({
+      ...prev,
+      medias: tmpMedias,
+    }));
+  };
 
   const handleSetMainImage = (image) => {
     let imagesTmp = [...product.medias];
@@ -64,7 +82,15 @@ export default function AdminArticleDetails() {
 
   const handleDelete = () => {};
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateArticle(product);
+      toast.success("Article mit à jour.");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen pt-[77px]">
@@ -186,7 +212,7 @@ export default function AdminArticleDetails() {
                               </div>
                             </>
                           )}
-                          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center space-x-2">
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center space-x-2">
                             <button
                               type="button"
                               onClick={() => handleSetMainImage(imageUrl)}
@@ -221,14 +247,14 @@ export default function AdminArticleDetails() {
                     />
                   </div>
 
-                  <div className="md:col-span-2">
-                    <label className="flex items-center space-x-2">
+                  <div className="md:col-span-2 ">
+                    <label className="flex items-center space-x-2 cursor-pointer">
                       <input
                         type="checkbox"
                         name="featured"
                         checked={product?.is_featured}
                         onChange={handleInputChange}
-                        className="rounded text-[#0C9619] focus:ring-[#0C9619]"
+                        className="rounded text-[#0C9619] focus:ring-[#0C9619] cursor-pointer"
                       />
                       <span className="text-gray-700">Mise en avant</span>
                     </label>
@@ -238,7 +264,7 @@ export default function AdminArticleDetails() {
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="bg-[#0C9619] text-white px-6 py-2 rounded-lg hover:bg-[#0A7F14] transition-colors duration-300 flex items-center gap-2"
+                    className="bg-[#0C9619] text-white px-6 py-2 rounded-lg hover:bg-[#0A7F14] transition-colors duration-300 flex items-center gap-2 cursor-pointer"
                   >
                     <CiSaveDown2 size={20} />
                     Enregistrer les modifications

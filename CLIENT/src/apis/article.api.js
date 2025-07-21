@@ -43,3 +43,21 @@ export async function getTypes() {
     console.log(error);
   }
 }
+
+export async function updateArticle(newArticle) {
+  console.log(newArticle);
+
+  try {
+    const response = await fetch(`${BASE_URL}/`, {
+      method: "PATCH",
+      body: JSON.stringify(newArticle),
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

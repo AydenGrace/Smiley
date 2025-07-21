@@ -89,3 +89,23 @@ export const getById = async (req, res) => {
     res.status(500).json({message: error.message});
   }
 };
+
+export const update = async (req, res) => {
+  try {
+    console.log(req.body);
+
+    const {_id} = req.body;
+    const newArticle = await Article.findByIdAndUpdate(_id, req.body, {
+      new: true,
+    });
+    if (!newArticle)
+      return res.status(404).json({message: "Article not found"});
+    res.status(200).json({ok: true, article: newArticle});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Article.update()${RED} function : ${RESET}`,
+      error.message
+    );
+    res.status(500).json({message: error.message});
+  }
+};
