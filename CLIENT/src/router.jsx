@@ -35,8 +35,9 @@ import AdminConnected from "./secure/AdminConnected";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminArticles from "./pages/AdminArticles";
 import AdminSales from "./pages/AdminSales";
-import {articlesLoader} from "./loaders/adminLoader";
+import {articlesLoader, ordersLoader} from "./loaders/adminLoader";
 import AdminArticleDetails from "./pages/AdminArticleDetails";
+import AdminSaleDetails from "./pages/AdminSaleDetails";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +104,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/manage-sales/:id?",
+        element: (
+          <UserConnected>
+            <AdminConnected>
+              <AdminSaleDetails />
+            </AdminConnected>
+          </UserConnected>
+        ),
+      },
+      {
         path: "/admin",
         element: (
           <UserConnected>
@@ -123,6 +134,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "sales",
+            loader: ordersLoader,
             element: <AdminSales />,
           },
         ],

@@ -21,6 +21,20 @@ export const getMyOrders = async (req, res) => {
   }
 };
 
+export const getAllOrders = async (req, res) => {
+  try {
+    res
+      .status(200)
+      .json(await Order.find().populate("status").populate("client"));
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.getAllOrders()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
 export const getMyOrderDetails = async (req, res) => {
   try {
     const {id} = req.params;
@@ -31,13 +45,53 @@ export const getMyOrderDetails = async (req, res) => {
       .populate("address_billing")
       .populate("address_delivery")
       .populate("discount");
-
     if (!order.client.equals(req.user._id))
       return res.status(401).json({message: "You can only get yours orders."});
     return res.status(200).json({order});
   } catch (error) {
     console.log(
-      `${RED}Error in ${BLUE}Order.getMyOrders()${RED} function : ${RESET}`,
+      `${RED}Error in ${BLUE}Order.getMyOrderDetails()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
+export const getOrderDetails = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const order = await Order.findById(id)
+      .populate("status")
+      .populate("articles.article")
+      .populate("histories")
+      .populate("address_billing")
+      .populate("address_delivery")
+      .populate("discount")
+      .populate("client");
+
+    return res.status(200).json(order);
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.getOrderDetails()${RED} function : ${RESET}`,
+      error
+    );
+    res.status(500).json({message: error});
+  }
+};
+
+export const patchDeliveryCode = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {delivery_code} = req.body;
+    const order = await Order.findByIdAndUpdate(
+      id,
+      {delivery_code},
+      {new: true}
+    );
+    return res.status(200).json({order});
+  } catch (error) {
+    console.log(
+      `${RED}Error in ${BLUE}Order.patchDeliveryCode()${RED} function : ${RESET}`,
       error
     );
     res.status(500).json({message: error});

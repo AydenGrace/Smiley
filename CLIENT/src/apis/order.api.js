@@ -1,8 +1,23 @@
 const BASE_URL = import.meta.env.VITE_BACK + "/order";
 
-export async function getUserOrders(id) {
+export async function getUserOrders() {
   try {
     const response = await fetch(`${BASE_URL}/currentUser`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllOrders() {
+  try {
+    const response = await fetch(`${BASE_URL}/`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -18,6 +33,21 @@ export async function getUserOrders(id) {
 export async function getMyOrderDetails(orderId) {
   try {
     const response = await fetch(`${BASE_URL}/my-details/${orderId}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getOrderDetails(orderId) {
+  try {
+    const response = await fetch(`${BASE_URL}/${orderId}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -59,6 +89,23 @@ export async function validateOrder(id) {
     console.log(error);
   }
 }
+
+export async function setDeliveryCodeOrder(id, code) {
+  try {
+    const response = await fetch(`${BASE_URL}/set-code/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({delivery_code: code}),
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function cancelOrder(id) {
   try {
     const response = await fetch(`${BASE_URL}/cancel/${id}`, {
