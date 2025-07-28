@@ -69,7 +69,8 @@ export default function AdminSales() {
                   className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                     sale.status.title === "Livré"
                       ? "bg-green-100 text-green-800"
-                      : sale.status.title === "En attente"
+                      : sale.status.title === "En attente" ||
+                        sale.status.title === "En préparation"
                       ? "bg-yellow-100 text-yellow-800"
                       : "bg-blue-100 text-blue-800"
                   }`}

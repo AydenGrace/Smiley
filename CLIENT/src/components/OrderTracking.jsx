@@ -29,25 +29,27 @@ export default function OrderTracking({histories}) {
 
   return (
     <div className="w-full flex flex-col relative ">
-      {histories.reverse().map((hist, idx) => (
-        <div
-          className="flex p-2.5 items-center gap-2.5 z-10"
-          key={`hist_${idx}`}
-        >
-          <div className="min-w-15 min-h-15">{getCicle(hist.content)}</div>
-          <div className="flex flex-col">
-            <p className="font-medium">{hist.content}</p>
-            <p className="opacity-60">
-              {new Date(hist.createdAt).toLocaleDateString("fr-FR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}{" "}
-              à {new Date(hist.createdAt).toLocaleTimeString("fr-FR")}
-            </p>
+      {histories
+        ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .map((hist, idx) => (
+          <div
+            className="flex p-2.5 items-center gap-2.5 z-10"
+            key={`hist_${idx}`}
+          >
+            <div className="min-w-15 min-h-15">{getCicle(hist.content)}</div>
+            <div className="flex flex-col">
+              <p className="font-medium">{hist.content}</p>
+              <p className="opacity-60">
+                {new Date(hist.createdAt).toLocaleDateString("fr-FR", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                à {new Date(hist.createdAt).toLocaleTimeString("fr-FR")}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
       <div className="absolute w-0.5 bg-gray-200 h-[calc(100%-64px)] top-8 left-[39px] z-0"></div>
     </div>
   );
